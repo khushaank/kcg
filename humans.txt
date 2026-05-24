@@ -1,0 +1,12 @@
+/* TEAM */
+KCG Foundation
+Web: https://khushaank.github.io/KCG-foundation/
+Contact: info@b2bindustrial.in
+
+/* THANKS */
+Built with ❤ for community impact.
+
+/* SITE */
+Technology: Static HTML, CSS, JavaScript
+Design: KCG Foundation
+Last update: 2026-05-24

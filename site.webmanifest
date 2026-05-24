@@ -1,0 +1,11 @@
+{
+  "name": "KCG Foundation",
+  "short_name": "KCG",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0A192F",
+  "icons": [
+    { "src": "favicon.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

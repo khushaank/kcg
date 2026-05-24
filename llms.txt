@@ -1,0 +1,9 @@
+# LLMs / Prompts placeholder
+This file is a workspace placeholder for any LLM-related guidelines, prompts, or local test data you want to keep with the project.
+
+Examples:
+- Prompt templates for generating blog summaries
+- Safety notes and allowed content rules
+- Links to datasets or documentation
+
+Edit this file to add your project-specific LLM instructions.

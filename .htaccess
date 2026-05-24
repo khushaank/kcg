@@ -1,0 +1,23 @@
+# .htaccess - Basic static site rules for Apache
+# Serve custom 404 page
+ErrorDocument 404 /404.html
+
+# Disable directory listing
+Options -Indexes
+
+# Enable mod_rewrite for clean URL rules if needed
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # If the requested file/directory does not exist, serve index.html (optional)
+  # RewriteCond %{REQUEST_FILENAME} !-f
+  # RewriteCond %{REQUEST_FILENAME} !-d
+  # RewriteRule ^ index.html [L]
+</IfModule>
+
+# Caching hints (optional)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/* "access plus 1 month"
+</IfModule>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ─── METADATA & SEO ─── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — KCG Foundation | Legacy of Late Sh. Kailash Chand Gupta</title>
+  
+  <meta name="description" content="Discover the history, core values, and mission of KCG Foundation in Haryana. Learn how we carry forward the compassionate legacy of Late Sh. Kailash Chand Gupta through education, nutrition, and welfare." />
+  <meta name="keywords" content="About KCG Foundation, Kailash Chand Gupta, NGO Haryana history, non-profit core values, charitable trust Haryana, volunteer about, education charity India" />
+  <meta name="author" content="KCG Foundation" />
+  <link rel="canonical" href="about.html" />
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="About Us — KCG Foundation | Legacy &amp; Mission" />
+  <meta property="og:description" content="Learn about our story and how we serve low-income communities in Haryana, carrying forward the memory and ideology of Late Sh. Kailash Chand Gupta." />
+  <meta property="og:image" content="Logo.png" />
+  <meta property="og:url" content="about.html" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="About Us — KCG Foundation" />
+  <meta name="twitter:description" content="Our story, our values, and the humanitarian legacy of Late Sh. Kailash Chand Gupta." />
+  <meta name="twitter:image" content="Logo.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Timeline specific styles (embedded here to avoid bloat in main style, but matches global theme) */
+    .timeline-section {
+      background: var(--white);
+      padding: 100px 5%;
+    }
+    .timeline-container {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 20px 0;
+    }
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--border-warm);
+      transform: translateX(-50%);
+    }
+    .timeline-block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 50px;
+      position: relative;
+      width: 100%;
+    }
+    .timeline-block:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .timeline-pointer {
+      position: absolute;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border: 4px solid var(--white);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: var(--shadow-sm);
+      z-index: 2;
+    }
+    .timeline-content {
+      width: 45%;
+      padding: 30px;
+      background: var(--cream);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+    }
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+    .timeline-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .timeline-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .timeline-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container::before {
+        left: 20px;
+      }
+      .timeline-block {
+        flex-direction: row !important;
+        margin-bottom: 40px;
+      }
+      .timeline-pointer {
+        left: 20px;
+      }
+      .timeline-content {
+        width: calc(100% - 50px);
+        margin-left: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader (shows the logo while page loads) -->
+  <div id="preloader" class="preloader" aria-hidden="false">
+    <div class="preloader-inner">
+      <img src="Logo.png" alt="KCG Foundation Logo" class="preloader-logo" />
+      <div class="preloader-progress" aria-hidden="true">
+        <div class="preloader-progress-bar" id="preloaderBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div class="preloader-progress-label" id="preloaderLabel">Loading</div>
+    </div>
+  </div>
+
+  <!-- ─── SEMANTIC HEADER ─── -->
+  <header class="site-header">
+    <nav id="mainNav">
+      <a href="index.html" class="nav-logo" id="headerLogoLink">
+        <img src="favicon.png" alt="KCG Foundation Logo" />
+        <div class="nav-logo-text">
+          <strong>KCG Foundation</strong>
+          <span>बहुजनहिताय बहुजन सुखाय</span>
+        </div>
+      </a>
+      
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="desktopNavLinks">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="about.html">About</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="donate.html" class="nav-cta">Donate Now</a></li>
+      </ul>
+      
+      <!-- Hamburger Toggle -->
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Drawer Overlay & Menu -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="programs.html" onclick="toggleMenu()">Programs</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="donate.html" class="nav-cta" onclick="toggleMenu()">Donate Now</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ─── PAGE HERO ─── -->
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <div class="section-tag" style="justify-content:center; color: var(--accent);">Who We Are</div>
+        <h1>Our Story &amp; <em>Values</em></h1>
+        <p>A mission born from a deep sense of social responsibility and love, working tirelessly to uplift underprivileged families across Haryana.</p>
+      </div>
+    </section>
+
+    <!-- ─── STORY SECTION ─── -->
+    <section class="about" id="storySection">
+      <div class="section-inner">
+        <div class="about-grid">
+          <div class="about-images reveal-left">
+            <div class="about-img-main">
+              <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&amp;q=80" alt="Students writing inside a supportive classroom environment" />
+            </div>
+            <div class="about-img-secondary">
+              <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=500&amp;q=80" alt="Volunteers organizing supplies" />
+            </div>
+          </div>
+          
+          <div class="about-content reveal-right">
+            <div class="section-tag">Empowering Lives</div>
+            <h2 class="section-title">Carrying a Noble <em>Ideology Forward</em></h2>
+            <p>KCG Foundation is a registered, public-benefit non-profit organization established in loving memory of Late Sh. Kailash Chand Gupta. Guided by his vision of selfless service, the foundation targets the core issues holding back families in underprivileged pockets of Haryana.</p>
+            <p>We believe that social change is a collective endeavor. Our focus on educational scholarships, mid-day nutrition drives, and community health camps addresses the immediate physical and intellectual needs of families, enabling children to build a secure, self-reliant future.</p>
+            
+            <!-- Additional CTA -->
+            <div style="margin-top: 24px; margin-bottom: 24px;">
+              <a href="volunteer.html" class="btn btn-primary">Join Us as a Volunteer</a>
+            </div>
+
+            <div class="about-quote">
+              <p>"Our guiding principle, 'बहुजनहिताय बहुजन सुखाय' (For the welfare of many, for the happiness of many), inspires us to expand our support framework every single day."</p>
+              <cite>— Legacy Philosophy</cite>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── LEGACY TIMELINE ─── -->
+    <section class="timeline-section" id="tributeSection">
+      <div class="section-inner">
+        <div style="text-align:center; max-width:600px; margin:0 auto 20px">
+          <div class="section-tag" style="justify-content:center;">Historical Legacy</div>
+          <h2 class="section-title">The Journey of <em>Inspiration</em></h2>
+          <p class="section-sub" style="margin: 0 auto;">Trace the milestones of Late Sh. Kailash Chand Gupta's humanitarian impact and the growth of the foundation established in his honor.</p>
+        </div>
+
+        <div class="timeline-container">
+          <!-- Milestone 1 -->
+          <div class="timeline-block reveal">
+            <div class="timeline-pointer"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">1953</div>
+              <h3>A Humble Beginning</h3>
+              <p>Late Sh. Kailash Chand Gupta was born in Haryana on 23rd September. From an early age, he was deeply influenced by the rural community around him and developed a strong value system focused on integrity and charity.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="timeline-block reveal" style="transition-delay: 0.1s;">
+            <div class="timeline-pointer"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">1978</div>
+              <h3>Empowerment at the Grassroots</h3>
+              <p>Recognizing the struggles of daily-wage earners and construction workers in local industries, he initiated informal support circles to help their families access basic medical care and resolve housing issues.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="timeline-block reveal" style="transition-delay: 0.2s;">
+            <div class="timeline-pointer"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">1996</div>
+              <h3>The Push for Child Literacy</h3>
+              <p>Firmly believing that education is the ultimate equalizer, he started sponsoring the primary schooling fees and book supplies of local children out of his personal savings, ensuring no child drops out due to costs.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 4 -->
+          <div class="timeline-block reveal" style="transition-delay: 0.3s;">
+            <div class="timeline-pointer"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2015</div>
+              <h3>A Legacy Entrusted</h3>
+              <p>Sh. Kailash Chand Gupta left for his heavenly abode on 23rd April. His family and community circles resolved to institutionalize his life's philanthropic actions, ensuring his mission to serve humanity continues.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 5 -->
+          <div class="timeline-block reveal" style="transition-delay: 0.4s;">
+            <div class="timeline-pointer"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2016</div>
+              <h3>KCG Foundation is Born</h3>
+              <p>The foundation was formally registered as a non-profit. The team launched structured scholarship programs, established regular mid-day meal nutrition cycles, and expanded welfare drives to touch thousands of lives in Haryana.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CALL TO ACTION ─── -->
+    <section class="cta-banner">
+      <div class="cta-inner reveal">
+        <h2>Help Us Write the Next Chapter of Hope</h2>
+        <p>Your support ensures that we can extend educational scholarships and nutritional security to even more children in the coming term. Let's make a difference together.</p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="donate.html" class="btn btn-white">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+            Donate Now
+          </a>
+          <a href="volunteer.html" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">
+            Become a Volunteer
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── SEMANTIC FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html" style="margin-bottom: 16px;">
+            <img src="favicon.png" alt="KCG Foundation Logo" />
+            <div class="nav-logo-text">
+              <strong>KCG Foundation</strong>
+              <span>बहुजनहिताय बहुजन सुखाय</span>
+            </div>
+          </a>
+          <p>A registered public benefit non-profit organization focused on promoting basic childhood schooling, community healthcare, and physical welfare for daily wage families in Haryana, India.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" aria-label="KCG Foundation on Facebook" title="Facebook">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
+            </a>
+            <a href="#" class="social-btn" aria-label="KCG Foundation on Instagram" title="Instagram">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/></svg></span>
+            </a>
+            <a href="tel:+919899702065" class="social-btn" aria-label="Call KCG Foundation over phone" title="Phone">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="about.html#tributeSection">The Founder</a></li>
+            <li><a href="programs.html">Active Programs</a></li>
+            <li><a href="gallery.html">Impact Gallery</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <ul>
+            <li><a href="donate.html">Donate Support</a></li>
+            <li><a href="volunteer.html">Be a Volunteer</a></li>
+            <li><a href="contact.html">Partner With Us</a></li>
+            <li><a href="contact.html">Reach Us</a></li>
+          </ul>
+        </div>
+        
+                <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe to KCG updates and get stories, impact news, and event invitations delivered to your inbox.</p>
+          <form class="newsletter-form">
+            <input type="email" name="newsletterEmail" placeholder="Email address" required />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="tel:+919899702065">+91 98997 02065</a></li>
+            <li><a href="mailto:info@kcgfoundation.org">info@kcgfoundation.org</a></li>
+            <li><span>Haryana, India</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year"></span> KCG Foundation. All rights reserved. Registered Public Benefit Organization, Haryana, India.</p>
+        <p>Built for <a href="index.html">a better tomorrow</a></p>
+        <p><button class="btn btn-small btn-outline" onclick="openShareModal(document.title, window.location.href)">Share this page</button></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── FLOATING CALL WIDGET ─── -->
+  <a href="tel:+919899702065" class="float-call" aria-label="Call KCG Foundation Office" title="Call Us Now">
+    <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+  </a>
+
+  <!-- ─── LINK TO GLOBAL JS ─── -->
+  <script src="script.js"></script>
+  <div class="share-modal" id="shareModal" aria-hidden="true">
+    <div class="modal-overlay" onclick="closeShareModal()"></div>
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeShareModal()" aria-label="Close share dialog">�</button>
+      <h3>Share this page</h3>
+      <p id="shareModalTitle">Share this update with your friends and supporters.</p>
+      <div class="share-actions">
+        <button class="btn btn-primary" id="copyShareLinkBtn">Copy link</button>
+        <button class="btn btn-outline" id="openNativeShareBtn">Open share menu</button>
+      </div>
+      <div class="share-link-box">
+        <input type="text" id="shareModalLink" readonly />
+      </div>
+    </div>
+  </div></body>
+</html>
+
+
+
+

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ─── METADATA & SEO ─── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support KCG Foundation | Donate for Childhood Education</title>
+  
+  <meta name="description" content="Support KCG Foundation. Make a secure online donation to sponsor childhood education scholarships, distribute mid-day hot meals, and fund worker medical aid camps in Haryana, India." />
+  <meta name="keywords" content="Donate KCG Foundation, NGO sponsor child India, primary school scholarship donation, feed underprivileged children charity, donate SBI bank Haryana, UPI NGO donation" />
+  <meta name="author" content="KCG Foundation" />
+  <link rel="canonical" href="donate.html" />
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Support KCG Foundation | Transform Rural Futures" />
+  <meta property="og:description" content="Sponsor educational resources and nutritional safety directly on the ground. Make a tax-exempt contribution to KCG Foundation." />
+  <meta property="og:image" content="Logo.png" />
+  <meta property="og:url" content="donate.html" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Support KCG Foundation" />
+  <meta name="twitter:description" content="Help us secure education scholarships and nutrition drives for children in Haryana, India." />
+  <meta name="twitter:image" content="Logo.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Preloader (shows the logo while page loads) -->
+  <div id="preloader" class="preloader" aria-hidden="false">
+    <div class="preloader-inner">
+      <img src="Logo.png" alt="KCG Foundation Logo" class="preloader-logo" />
+      <div class="preloader-progress" aria-hidden="true">
+        <div class="preloader-progress-bar" id="preloaderBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div class="preloader-progress-label" id="preloaderLabel">Loading</div>
+    </div>
+  </div>
+
+  <!-- ─── SEMANTIC HEADER ─── -->
+  <header class="site-header">
+    <nav id="mainNav">
+      <a href="index.html" class="nav-logo" id="headerLogoLink">
+        <img src="favicon.png" alt="KCG Foundation Logo" />
+        <div class="nav-logo-text">
+          <strong>KCG Foundation</strong>
+          <span>बहुजनहिताय बहुजन सुखाय</span>
+        </div>
+      </a>
+      
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="desktopNavLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="active"><a href="donate.html" class="nav-cta">Donate Now</a></li>
+      </ul>
+      
+      <!-- Hamburger Toggle -->
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Drawer Overlay & Menu -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="programs.html" onclick="toggleMenu()">Programs</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="donate.html" class="nav-cta" onclick="toggleMenu()">Donate Now</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ─── PAGE HERO ─── -->
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <div class="section-tag" style="justify-content:center; color: var(--accent);">Empower a Child</div>
+        <h1>Support <em>Our Mission</em></h1>
+        <p>Your contribution directly provides textbooks, warm meals, school uniforms, and community medical relief camps to underprivileged families in Haryana.</p>
+      </div>
+    </section>
+
+    <!-- ─── INTERACTIVE DONATION SECTIONS ─── -->
+    <section class="donation-section" style="background: var(--white);">
+      <div class="section-inner">
+        
+        <div class="donation-layout">
+          <!-- Left Col: Form & Select Tiers -->
+          <div class="donation-card-box reveal-left">
+            <div class="section-tag">Donation Form</div>
+            <h3 style="font-size: 24px; margin-bottom: 24px;">Secure Online <em>Contribution</em></h3>
+            
+            <form id="donationForm" onsubmit="handleDonationSubmit(event)">
+              <!-- Predefined Tiers -->
+              <div class="form-group">
+                <label>Select Contribution Tier</label>
+                <div class="donation-tiers">
+                  <!-- Tier 1 -->
+                  <div class="donation-tier selected" onclick="selectTier(this, 1000)">
+                    <strong>₹ 1,000</strong>
+                    <span>School uniform &amp; textbook sets for one student</span>
+                  </div>
+                  <!-- Tier 2 -->
+                  <div class="donation-tier" onclick="selectTier(this, 2500)">
+                    <strong>₹ 2,500</strong>
+                    <span>Nutritious mid-day food for a child for one month</span>
+                  </div>
+                  <!-- Tier 3 -->
+                  <div class="donation-tier" onclick="selectTier(this, 5000)">
+                    <strong>₹ 5,000</strong>
+                    <span>Full term tuition scholarship for one child</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Custom Amount Input -->
+              <div class="form-group">
+                <label for="customAmount">Custom Donation Amount (₹)</label>
+                <input type="number" id="customAmount" value="1000" min="100" class="form-input" oninput="handleAmountInput(this.value)" required />
+              </div>
+
+              <!-- Dynamic Impact Meter -->
+              <div class="donation-meter-desc" id="impactMeter">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                </span>
+                <span id="impactText">Your contribution of ₹1,000 will purchase custom-fit uniforms and full primary school textbook sets for one student.</span>
+              </div>
+
+              <!-- Donor Details -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <input type="text" id="fullName" placeholder="Ramesh Kumar" required class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label for="emailAddr">Email Address</label>
+                  <input type="email" id="emailAddr" placeholder="ramesh@gmail.com" required class="form-input" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phoneNo">Phone Number</label>
+                  <input type="tel" id="phoneNo" placeholder="+91 98765 43210" required class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label for="panCard">PAN Card Number (For Tax Receipt)</label>
+                  <input type="text" id="panCard" placeholder="ABCDE1234F" class="form-input" style="text-transform: uppercase;" />
+                </div>
+              </div>
+
+              <button type="submit" class="form-submit-btn" id="submitDonationBtn" style="margin-top: 10px;">
+                Proceed to Contribution
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Right Col: Bank Details & QR -->
+          <div class="banking-info reveal-right">
+            <div class="section-tag">Direct Transfers</div>
+            <h3>Alternative <em>Payment Methods</em></h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">If you prefer sending physical checks or initiating instant online bank transfers (NEFT/IMPS/RTGS), please use our registered details below.</p>
+            
+            <table class="bank-table">
+              <tr>
+                <td>Account Name</td>
+                <td>KCG Foundation Trust</td>
+              </tr>
+              <tr>
+                <td>Bank Name</td>
+                <td>State Bank of India (SBI)</td>
+              </tr>
+              <tr>
+                <td>Account Number</td>
+                <td>398402947192 (Mock)</td>
+              </tr>
+              <tr>
+                <td>IFSC Code</td>
+                <td>SBIN0001234 (Mock)</td>
+              </tr>
+              <tr>
+                <td>Branch Code</td>
+                <td>Panipat Center, Haryana</td>
+              </tr>
+            </table>
+
+            <!-- UPI Scan Card Mockup -->
+            <div class="qr-code-card">
+              <div class="qr-placeholder">
+                <span style="display: block; padding: 10px;">Instant UPI QR Code Mockup</span>
+              </div>
+              <p>Scan to Pay Using GPay, Paytm, or PhonePe</p>
+              <span style="font-size: 11px; font-weight: 700; color: var(--accent); display: block; margin-top: 4px;">upi: kcgfoundation@sbi</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── SEMANTIC FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html" style="margin-bottom: 16px;">
+            <img src="favicon.png" alt="KCG Foundation Logo" />
+            <div class="nav-logo-text">
+              <strong>KCG Foundation</strong>
+              <span>बहुजनहिताय बहुजन सुखाय</span>
+            </div>
+          </a>
+          <p>A registered public benefit non-profit organization focused on promoting basic childhood schooling, community healthcare, and physical welfare for daily wage families in Haryana, India.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" aria-label="KCG Foundation on Facebook" title="Facebook">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
+            </a>
+            <a href="#" class="social-btn" aria-label="KCG Foundation on Instagram" title="Instagram">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/></svg></span>
+            </a>
+            <a href="tel:+919899702065" class="social-btn" aria-label="Call KCG Foundation over phone" title="Phone">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="about.html#tributeSection">The Founder</a></li>
+            <li><a href="programs.html">Active Programs</a></li>
+            <li><a href="gallery.html">Impact Gallery</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <ul>
+            <li><a href="donate.html">Donate Support</a></li>
+            <li><a href="volunteer.html">Be a Volunteer</a></li>
+            <li><a href="contact.html">Partner With Us</a></li>
+            <li><a href="contact.html">Reach Us</a></li>
+          </ul>
+        </div>
+        
+                <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe to KCG updates and get stories, impact news, and event invitations delivered to your inbox.</p>
+          <form class="newsletter-form">
+            <input type="email" name="newsletterEmail" placeholder="Email address" required />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="tel:+919899702065">+91 98997 02065</a></li>
+            <li><a href="mailto:info@kcgfoundation.org">info@kcgfoundation.org</a></li>
+            <li><span>Haryana, India</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year"></span> KCG Foundation. All rights reserved. Registered Public Benefit Organization, Haryana, India.</p>
+        <p>Built for <a href="index.html">a better tomorrow</a></p>
+        <p><button class="btn btn-small btn-outline" onclick="openShareModal(document.title, window.location.href)">Share this page</button></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── FLOATING CALL WIDGET ─── -->
+  <a href="tel:+919899702065" class="float-call" aria-label="Call KCG Foundation Office" title="Call Us Now">
+    <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+  </a>
+
+  <!-- ─── SCRIPTS ─── -->
+  <script>
+    // Header shadow on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').parentElement.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu drawer toggle
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileOverlay');
+      const btn = document.getElementById('hamburgerBtn');
+      
+      menu.classList.toggle('open');
+      overlay.classList.toggle('open');
+      btn.classList.toggle('open');
+      
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+    }
+
+    // Scroll reveal intersection observer
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
+
+    // Interactive Tiers Logic
+    function selectTier(element, val) {
+      // Remove selected class from all tiers
+      document.querySelectorAll('.donation-tier').forEach(tier => tier.classList.remove('selected'));
+      // Add to clicked
+      element.classList.add('selected');
+      // Populate custom input
+      document.getElementById('customAmount').value = val;
+      // Update impact message
+      updateImpactDescription(val);
+    }
+
+    function handleAmountInput(val) {
+      const numVal = parseInt(val, 10);
+      
+      // De-select all predefined tiers
+      document.querySelectorAll('.donation-tier').forEach(tier => tier.classList.remove('selected'));
+
+      // Check if matches one of our predefined values to highlight it
+      if (numVal === 1000) {
+        document.querySelectorAll('.donation-tier')[0].classList.add('selected');
+      } else if (numVal === 2500) {
+        document.querySelectorAll('.donation-tier')[1].classList.add('selected');
+      } else if (numVal === 5000) {
+        document.querySelectorAll('.donation-tier')[2].classList.add('selected');
+      }
+
+      updateImpactDescription(numVal);
+    }
+
+    function updateImpactDescription(amount) {
+      const textElement = document.getElementById('impactText');
+      const meterElement = document.getElementById('impactMeter');
+
+      if (isNaN(amount) || amount <= 0) {
+        textElement.innerText = "Please input a positive donation amount.";
+        meterElement.style.color = "var(--text-muted)";
+        meterElement.style.borderLeftColor = "var(--border-warm)";
+        return;
+      }
+
+      meterElement.style.color = "var(--success)";
+      meterElement.style.borderLeftColor = "var(--success)";
+
+      if (amount < 500) {
+        textElement.innerText = `Your contribution of ₹${amount.toLocaleString()} will fund general school supplies like pencil sets and notebooks for children.`;
+      } else if (amount < 1500) {
+        textElement.innerText = `Your contribution of ₹${amount.toLocaleString()} will purchase custom-fit uniforms and full primary school textbook sets for one student.`;
+      } else if (amount < 3500) {
+        textElement.innerText = `Your contribution of ₹${amount.toLocaleString()} will secure daily hot nutritious mid-day meals for one child for an entire month.`;
+      } else if (amount < 7500) {
+        textElement.innerText = `Your contribution of ₹${amount.toLocaleString()} sponsors a comprehensive educational scholarship and supply box for one student for a full term.`;
+      } else {
+        textElement.innerText = `Your contribution of ₹${amount.toLocaleString()} sponsors full educational support, nutritional meals, and family health kit assistance for multiple students!`;
+      }
+    }
+
+    // Mock Donation Submission Handling
+    function handleDonationSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('donationForm');
+      const btn = document.getElementById('submitDonationBtn');
+      const customAmount = document.getElementById('customAmount').value;
+      
+      btn.innerHTML = '<span class="icon"><svg viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> Loading secure checkout...';
+      btn.style.backgroundColor = 'var(--success)';
+      btn.style.boxShadow = '0 8px 24px rgba(26, 122, 76, 0.3)';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        alert(`Thank you for your generous contribution of ₹${parseInt(customAmount).toLocaleString()}! In a live environment, you would be redirected to a secure payment gateway (Razorpay/Paytm). Check your bank details card on the right to complete NEFT/IMPS transfers.`);
+        form.reset();
+        btn.innerHTML = 'Proceed to Contribution <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>';
+        btn.style.backgroundColor = 'var(--accent)';
+        btn.style.boxShadow = 'var(--shadow-accent)';
+        btn.disabled = false;
+        
+        // Select standard tier 1 back
+        document.querySelectorAll('.donation-tier')[0].classList.add('selected');
+        document.getElementById('customAmount').value = 1000;
+        updateImpactDescription(1000);
+      }, 2000);
+    }
+  </script>
+  <div class="share-modal" id="shareModal" aria-hidden="true">
+    <div class="modal-overlay" onclick="closeShareModal()"></div>
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeShareModal()" aria-label="Close share dialog">�</button>
+      <h3>Share this page</h3>
+      <p id="shareModalTitle">Share this update with your friends and supporters.</p>
+      <div class="share-actions">
+        <button class="btn btn-primary" id="copyShareLinkBtn">Copy link</button>
+        <button class="btn btn-outline" id="openNativeShareBtn">Open share menu</button>
+      </div>
+      <div class="share-link-box">
+        <input type="text" id="shareModalLink" readonly />
+      </div>
+    </div>
+  </div></body>
+</html>
+
+
+
+

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Article Viewer — KCG Foundation</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <meta name="theme-color" content="#0A192F" />
+  <style>
+    /* Small adjustments specific to viewer */
+    .viewer-main { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 40px; }
+    .viewer-article h1 { margin-bottom: 8px; }
+    .viewer-article .featured { width:100%; border-radius:12px; margin: 18px 0; }
+    .toc-sidebar { position: sticky; top:120px; align-self:start; }
+    .toc-list { list-style: none; padding-left: 0; }
+    .toc-item { margin: 6px 0; }
+    .viewer-controls { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+    .viewer-back { margin-right: auto; }
+  </style>
+</head>
+<body>
+  <!-- header (copied from blog/header) -->
+  <header class="site-header">
+    <nav id="mainNav">
+      <a href="index.html" class="nav-logo" id="headerLogoLink">
+        <img src="favicon.png" alt="KCG Foundation Logo" />
+        <div class="nav-logo-text">
+          <strong>KCG Foundation</strong>
+          <span>बहुजनहिताय बहुजन सुखाय</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="desktopNavLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="donate.html" class="nav-cta">Donate Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+  </header>
+
+  <main class="viewer-main">
+    <article class="viewer-article">
+      <div class="viewer-controls">
+        <button class="btn btn-outline viewer-back" id="backBtn">Back to Blog</button>
+        <button class="btn btn-outline" id="shareBtn">Share</button>
+      </div>
+
+      <div id="pulseHint">Loading article…</div>
+      <header id="pulsePostHeader"></header>
+      <div id="pulsePostContent"></div>
+    </article>
+
+    <aside class="toc-sidebar">
+      <div class="sidebar-card">
+        <h4>Table of Contents</h4>
+        <ul id="pulseTocList" class="toc-list"></ul>
+      </div>
+
+      <div class="sidebar-card" style="margin-top:18px;">
+        <h4>Newsletter</h4>
+        <form id="pulseNewsletterForm" class="newsletter-form">
+          <input id="pulseNewsletterEmail" type="email" placeholder="Email address" required />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </aside>
+  </main>
+
+  <!-- footer (copied) -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html" style="margin-bottom: 16px;">
+            <img src="favicon.png" alt="KCG Foundation Logo" />
+            <div class="nav-logo-text">
+              <strong>KCG Foundation</strong>
+              <span>बहुजनहिताय बहुजन सुखाय</span>
+            </div>
+          </a>
+          <p>A registered public benefit organization delivering education, nutrition, and welfare support to underprivileged children and families in Haryana.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Join our mailing list to receive the latest blog stories and impact updates directly in your inbox.</p>
+          <form class="newsletter-form" id="footerNewsletterForm">
+            <input type="email" name="newsletterEmail" id="footerNewsletterEmail" placeholder="Email address" required />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="tel:+919899702065">+91 98997 02065</a></li>
+            <li><a href="mailto:info@kcgfoundation.org">info@kcgfoundation.org</a></li>
+            <li><span>Haryana, India</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year"></span> KCG Foundation. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- share modal (reused) -->
+  <div class="share-modal" id="shareModal" aria-hidden="true">
+    <div class="modal-overlay" onclick="closeShareModal()"></div>
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeShareModal()" aria-label="Close share dialog">×</button>
+      <h3>Share this story</h3>
+      <p id="shareModalTitle">Share the latest KCG update with your network.</p>
+      <div class="share-actions">
+        <button class="btn btn-primary" id="copyShareLinkBtn">Copy link</button>
+        <button class="btn btn-outline" id="openNativeShareBtn">Open share menu</button>
+      </div>
+      <div class="share-link-box">
+        <input type="text" id="shareModalLink" readonly />
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const BLOG_JSON_PATH = 'blog-posts.json';
+
+    function buildTocFromContainer(containerEl) {
+      const container = document.getElementById('pulseTocList');
+      container.innerHTML = '';
+      const headings = containerEl.querySelectorAll('h2, h3');
+      if (!headings.length) {
+        container.innerHTML = '<li>No sections found in this article.</li>';
+        return;
+      }
+      const list = [...headings].map(h => {
+        const id = h.id || h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        h.id = id;
+        const tag = h.tagName.toLowerCase();
+        return `<li class="toc-item toc-${tag}"><a href="#${id}" data-target="${id}">${h.textContent}</a></li>`;
+      }).join('');
+      container.innerHTML = list;
+    }
+
+    function renderFullPost(post) {
+      if (!post) {
+        document.getElementById('pulseHint').textContent = 'Article not found.';
+        return;
+      }
+      document.getElementById('pulseHint').style.display = 'none';
+      const header = document.getElementById('pulsePostHeader');
+      const content = document.getElementById('pulsePostContent');
+      header.innerHTML = `
+        <div style="margin-bottom:12px;">
+          <div class="section-tag">${post.category || ''}</div>
+          <h1>${post.title}</h1>
+          <div class="blog-card-meta">${post.date} · ${post.readingTime || ''}</div>
+        </div>
+      `;
+      content.innerHTML = post.featuredImage ? `<img class="featured" src="${post.featuredImage}" alt="${post.title}" />${post.content}` : post.content;
+      buildTocFromContainer(content);
+
+      // smooth scrolling for TOC links
+      const toc = document.getElementById('pulseTocList');
+      toc.addEventListener('click', (e) => {
+        const a = e.target.closest('a[data-target]');
+        if (!a) return;
+        e.preventDefault();
+        const id = a.getAttribute('data-target');
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      // wire share button
+      document.getElementById('shareBtn').onclick = () => {
+        if (typeof openShareModal === 'function') openShareModal(post.title, window.location.href);
+      };
+    }
+
+    function showAllPosts(posts) {
+      document.getElementById('pulseHint').style.display = 'none';
+      const wrap = document.getElementById('pulsePostContent');
+      wrap.innerHTML = posts.map(p => `\
+        <article class="blog-card">\
+          <h3><a href="pulse.html#${p.slug}">${p.title}</a></h3>\
+          <div class="blog-card-meta">${p.date} · ${p.readingTime || ''}</div>\
+          <p>${p.excerpt}</p>\
+        </article>\
+      `).join('');
+    }
+
+    function initFromHashOrOpener() {
+      const slug = (location.hash || '').slice(1);
+      if (slug) {
+        fetch(BLOG_JSON_PATH).then(r => r.json()).then(posts => {
+          const p = posts.find(x => x.slug === decodeURIComponent(slug));
+          if (p) renderFullPost(p); else showAllPosts(posts);
+        }).catch(() => { document.getElementById('pulseHint').textContent = 'Unable to load article.'; });
+        return;
+      }
+      // ask opener for content
+      if (window.opener && !window.opener.closed) {
+        try { window.opener.postMessage({ type: 'requestPostContent' }, '*'); } catch (e) { /* ignore */ }
+      } else {
+        fetch(BLOG_JSON_PATH).then(r => r.json()).then(showAllPosts).catch(() => {
+          document.getElementById('pulseHint').textContent = 'Unable to load articles.';
+        });
+      }
+    }
+
+    window.addEventListener('message', (ev) => {
+      const d = ev && ev.data;
+      if (!d || !d.type) return;
+      if (d.type === 'postContent') {
+        if (d.post) renderFullPost(d.post);
+      }
+    });
+
+    // back / close
+    document.getElementById('backBtn').addEventListener('click', () => {
+      try { window.close(); } catch (e) { /* ignore */ }
+      // if still open, go back to blog
+      setTimeout(() => { location.href = 'blog.html'; }, 150);
+    });
+
+    // newsletter form basic client-side handler
+    document.getElementById('pulseNewsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('pulseNewsletterEmail').value;
+      alert('Thanks — we saved ' + email + ' (local demo)');
+      document.getElementById('pulseNewsletterForm').reset();
+    });
+
+    // notify opener when window unloads so overlay is removed
+    window.addEventListener('beforeunload', () => {
+      if (window.opener && !window.opener.closed) {
+        try { window.opener.postMessage({ type: 'pulseClosed' }, '*'); } catch (e) {}
+      }
+    });
+
+    // init
+    initFromHashOrOpener();
+  </script>
+</body>
+</html>

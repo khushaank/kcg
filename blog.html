@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — KCG Foundation | News, Stories, and Impact</title>
+    <meta name="description"
+        content="Read the latest stories, program updates, and impact reports from KCG Foundation in Haryana." />
+    <meta name="keywords"
+        content="KCG Foundation blog, NGO updates, education news, welfare stories, Haryana charity blog" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="blog-page">
+    <div id="preloader" class="preloader" aria-hidden="false">
+        <div class="preloader-inner">
+            <img src="Logo.png" alt="KCG Foundation Logo" class="preloader-logo" />
+            <div class="preloader-progress" aria-hidden="true">
+                <div class="preloader-progress-bar" id="preloaderBar" role="progressbar" aria-valuemin="0"
+                    aria-valuemax="100" aria-valuenow="0"></div>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <nav id="mainNav">
+            <a href="index.html" class="nav-logo" id="headerLogoLink">
+                <img src="favicon.png" alt="KCG Foundation Logo" />
+                <div class="nav-logo-text">
+                    <strong>KCG Foundation</strong>
+                    <span>बहुजनहिताय बहुजन सुखाय</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="desktopNavLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="donate.html" class="nav-cta">Donate Now</a></li>
+            </ul>
+            <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu"
+                aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" onclick="toggleMenu()">Home</a>
+            <a href="about.html" onclick="toggleMenu()">About</a>
+            <a href="programs.html" onclick="toggleMenu()">Programs</a>
+            <a href="blog.html" onclick="toggleMenu()">Blog</a>
+            <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+            <a href="contact.html" onclick="toggleMenu()">Contact</a>
+            <a href="donate.html" class="nav-cta" onclick="toggleMenu()">Donate Now</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero blog-hero">
+            <div class="page-hero-inner">
+                <div>
+                    <div class="section-tag">Insights</div>
+                    <h1>Stories of Change from the KCG Community</h1>
+                    <p>Follow our blog for program updates, real community stories, and practical ideas that support
+                        education, nutrition, and dignity in Haryana.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-section">
+            <div class="section-inner blog-grid">
+                <div>
+                    <div class="section-tag">Latest Updates</div>
+                    <div id="blogList" class="blog-list"></div>
+                </div>
+
+                <aside class="blog-sidebar">
+                    <div class="sidebar-card newsletter-card">
+                        <h3>Newsletter</h3>
+                        <p>Subscribe to receive new stories, impact reports, and community updates from KCG Foundation.
+                        </p>
+                        <form class="newsletter-form" id="sidebarNewsletterForm">
+                            <label for="sidebarNewsletterEmail">Email address</label>
+                            <input type="email" id="sidebarNewsletterEmail" name="newsletterEmail"
+                                placeholder="you@example.com" required />
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+
+                    <div class="sidebar-card toc-panel">
+                        <h4>Pulse</h4>
+                        <p>Open the article Table of Contents in a focused overlay page.</p>
+                        <button class="btn btn-outline" onclick="openPulse()">Open Pulse</button>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Popular Stories</h4>
+                        <div id="popularPosts" class="popular-posts"></div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a class="nav-logo" href="index.html" style="margin-bottom: 16px;">
+                        <img src="favicon.png" alt="KCG Foundation Logo" />
+                        <div class="nav-logo-text">
+                            <strong>KCG Foundation</strong>
+                            <span>बहुजनहिताय बहुजन सुखाय</span>
+                        </div>
+                    </a>
+                    <p>A registered public benefit organization delivering education, nutrition, and welfare support to
+                        underprivileged children and families in Haryana.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-btn" aria-label="KCG Foundation on Facebook" title="Facebook">
+                            <span class="icon"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
+                                </svg></span>
+                        </a>
+                        <a href="#" class="social-btn" aria-label="KCG Foundation on Instagram" title="Instagram">
+                            <span class="icon"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z" />
+                                </svg></span>
+                        </a>
+                        <a href="tel:+919899702065" class="social-btn" aria-label="Call KCG Foundation Office"
+                            title="Phone">
+                            <span class="icon"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                                </svg></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Organization</h4>
+                    <ul>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="programs.html">Programs</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Join our mailing list to receive the latest blog stories and impact updates directly in your
+                        inbox.</p>
+                    <form class="newsletter-form" id="footerNewsletterForm">
+                        <input type="email" name="newsletterEmail" id="footerNewsletterEmail"
+                            placeholder="Email address" required />
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><a href="tel:+919899702065">+91 98997 02065</a></li>
+                        <li><a href="mailto:info@kcgfoundation.org">info@kcgfoundation.org</a></li>
+                        <li><span>Haryana, India</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span class="current-year"></span> KCG Foundation. All rights reserved.</p>
+                <p><button class="btn btn-small btn-outline"
+                        onclick="openShareModal(document.title, window.location.href)">Share this page</button></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="share-modal" id="shareModal" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeShareModal()"></div>
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeShareModal()" aria-label="Close share dialog">×</button>
+            <h3>Share this story</h3>
+            <p id="shareModalTitle">Share the latest KCG update with your network.</p>
+            <div class="share-actions">
+                <button class="btn btn-primary" id="copyShareLinkBtn">Copy link</button>
+                <button class="btn btn-outline" id="openNativeShareBtn">Open share menu</button>
+            </div>
+            <div class="share-link-box">
+                <input type="text" id="shareModalLink" readonly />
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <div id="pulseOverlay" class="pulse-overlay" onclick="closePulseOverlay()" aria-hidden="true"></div>
+    <script src="blog.js"></script>
+</body>
+
+</html>

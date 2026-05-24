@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ─── METADATA & SEO ─── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KCG Foundation — Uplifting Underprivileged Children &amp; Families in Haryana</title>
+  
+  <meta name="description" content="KCG Foundation is a registered non-profit organization dedicated to the education, nutrition, and welfare of underprivileged children and families in Haryana, India. Carrying forward the legacy of Late Sh. Kailash Chand Gupta." />
+  <meta name="keywords" content="KCG Foundation, NGO Haryana, child education NGO, underprivileged children scholarships, mid-day meal nutrition, worker welfare, donate to charity India, Kailash Chand Gupta, Haryana social work" />
+  <meta name="author" content="KCG Foundation" />
+  <link rel="canonical" href="index.html" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="KCG Foundation — Uplifting Underprivileged Children &amp; Families" />
+  <meta property="og:description" content="Dedicated to education, nutrition, and welfare of underprivileged children in Haryana, India. Carrying forward the legacy of Late Sh. Kailash Chand Gupta." />
+  <meta property="og:image" content="Logo.png" />
+  <meta property="og:url" content="index.html" />
+  <meta property="og:site_name" content="KCG Foundation" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="KCG Foundation — Uplifting Underprivileged Children &amp; Families" />
+  <meta name="twitter:description" content="Dedicated to child education scholarships, meals, and community welfare in Haryana, India." />
+  <meta name="twitter:image" content="Logo.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Preloader (shows the logo while page loads) -->
+  <div id="preloader" class="preloader" aria-hidden="false">
+    <div class="preloader-inner">
+      <img src="Logo.png" alt="KCG Foundation Logo" class="preloader-logo" />
+      <div class="preloader-progress" aria-hidden="true">
+        <div class="preloader-progress-bar" id="preloaderBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div class="preloader-progress-label" id="preloaderLabel">Loading</div>
+    </div>
+  </div>
+
+  <!-- ─── SEMANTIC HEADER (Glassmorphic) ─── -->
+  <header class="site-header">
+    <nav id="mainNav">
+      <a href="index.html" class="nav-logo" id="headerLogoLink">
+        <img src="favicon.png" alt="KCG Foundation Logo" />
+        <div class="nav-logo-text">
+          <strong>KCG Foundation</strong>
+          <span>बहुजनहिताय बहुजन सुखाय</span>
+        </div>
+      </a>
+      
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="desktopNavLinks">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="donate.html" class="nav-cta">Donate Now</a></li>
+      </ul>
+      
+      <!-- Hamburger Toggle -->
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Drawer Overlay & Menu -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about.html" onclick="toggleMenu()">About</a>
+      <a href="programs.html" onclick="toggleMenu()">Programs</a>
+      <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+      <a href="contact.html" onclick="toggleMenu()">Contact</a>
+      <a href="donate.html" class="nav-cta" onclick="toggleMenu()">Donate Now</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ─── HERO SECTION ─── -->
+    <section class="hero" id="homeSection">
+      <div class="hero-inner">
+        <div class="hero-content reveal-left">
+          <div class="hero-eyebrow">Haryana, India</div>
+          <h1 id="mainHeroHeading">Lighting the Path of <em>Every Child</em></h1>
+          <p class="hero-tagline">बहुजनहिताय बहुजन सुखाय</p>
+          <p>KCG Foundation is a non-profit dedicated to uplifting underprivileged children through education, nutrition, and community care — carrying forward the compassionate legacy of Late Sh. Kailash Chand Gupta.</p>
+          <div class="hero-actions">
+            <a href="donate.html" class="btn btn-primary" id="heroDonateBtn">
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </span>
+              Donate &amp; Support
+            </a>
+            <a href="#aboutSection" class="btn btn-outline" id="heroMissionBtn">
+              Explore Our Mission
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
+              </span>
+            </a>
+            <a href="about.html" class="btn btn-outline" id="heroAboutBtn">
+              Learn Our Story
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-image reveal-right">
+          <div class="hero-image-main">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&amp;q=80" alt="Underprivileged children learning with smiles" loading="eager" />
+          </div>
+          <div class="hero-badge">
+            <div class="hero-badge-icon">
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+              </span>
+            </div>
+            <div class="hero-badge-text">
+              <strong id="badgeCounterChild">500+</strong>
+              <span>Children Supported</span>
+            </div>
+          </div>
+          <div class="hero-badge-2">
+            <strong>10+</strong>
+            <span>Years of Care</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── STATS BAR ─── -->
+    <div class="stats-bar">
+      <div class="stats-inner">
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="500" id="statChild">0<span>+</span></div>
+          <div class="stat-label">Children Supported</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.1s">
+          <div class="stat-number" data-target="10" id="statYears">0<span>+</span></div>
+          <div class="stat-label">Years of Service</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.2s">
+          <div class="stat-number" data-target="200" id="statFamilies">0<span>+</span></div>
+          <div class="stat-label">Families Helped</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.3s">
+          <div class="stat-number" data-target="50" id="statPrograms">0<span>+</span></div>
+          <div class="stat-label">Community Drives</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── ABOUT / IMPACT OVERVIEW ─── -->
+    <section class="about" id="aboutSection">
+      <div class="section-inner">
+        <div class="about-grid">
+          <div class="about-images reveal-left">
+            <div class="about-img-main">
+              <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&amp;q=80" alt="Students writing inside a supportive classroom environment" loading="lazy" />
+            </div>
+            <div class="about-img-secondary">
+              <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=500&amp;q=80" alt="A community worker distributing welfare supplies" loading="lazy" />
+            </div>
+          </div>
+          <div class="about-content reveal-right">
+            <div class="section-tag">Our Core Mission</div>
+            <h2 class="section-title">A Lifelong Mission of <em>Love &amp; Legacy</em></h2>
+            <p>KCG Foundation is a non-profit, public benefit organization rooted in the philosophy of Late Sh. Kailash Chand Gupta. Founded in his memory, the Foundation works dedicatedly in the rural and semi-urban pockets of Haryana to empower unprivileged segments of society.</p>
+            <p>Our focus lies heavily on basic childhood education, comprehensive family welfare, nutritional security, and extending medical aid to underprivileged workers and their households.</p>
+            
+            <!-- Additional CTA -->
+            <div style="margin-bottom: 28px;">
+              <a href="about.html" class="btn btn-outline" style="padding: 10px 24px; font-size: 13.5px;">Discover Full Story</a>
+            </div>
+
+            <div class="about-quote">
+              <p>"True prosperity is measured by how much we lift the weakest among us. Sowing education today reaps generations tomorrow."</p>
+              <cite>— Legacy Philosophy of Late Sh. Kailash Chand Gupta</cite>
+            </div>
+            
+            <div class="about-pillars">
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <span class="icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
+                  </span>
+                </div>
+                <div class="pillar-text">
+                  <strong>Education Support</strong>
+                  <span>Providing scholarships &amp; supplies.</span>
+                </div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <span class="icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
+                  </span>
+                </div>
+                <div class="pillar-text">
+                  <strong>Health &amp; Welfare</strong>
+                  <span>Medical aid &amp; sanitization support.</span>
+                </div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <span class="icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3z"/></svg>
+                  </span>
+                </div>
+                <div class="pillar-text">
+                  <strong>Worker Dignity</strong>
+                  <span>Welfare schemes for daily-wage earners.</span>
+                </div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-icon">
+                  <span class="icon">
+                    <svg viewBox="0 0 24 24"><path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 000 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27"/></svg>
+                  </span>
+                </div>
+                <div class="pillar-text">
+                  <strong>Nutritional Security</strong>
+                  <span>Healthy meals ensuring healthy minds.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MISSION FOCUS SECTION ─── -->
+    <section class="mission" id="missionSection">
+      <div class="section-inner">
+        <div class="mission-top reveal">
+          <div class="section-tag">Mission Focus</div>
+          <h2 class="section-title">Delivering Education, Nutrition, and Dignity</h2>
+          <p>Our mission is to build stronger families and brighter futures in Haryana through sustainable education, nourishment, and community-led support.</p>
+          <div class="hero-actions mission-actions">
+            <a href="mission.html" class="btn btn-primary">Read the Full Mission</a>
+            <a href="volunteer.html" class="btn btn-outline">Join the Mission</a>
+          </div>
+        </div>
+
+        <div class="mission-grid">
+          <div class="mission-card reveal">
+            <h3>Education for Every Child</h3>
+            <p>We support disadvantaged students with books, uniforms, tuition support, and mentorship so they can stay in school and thrive.</p>
+          </div>
+          <div class="mission-card reveal" style="transition-delay: 0.1s">
+            <h3>Healthy Meals Daily</h3>
+            <p>Reliable nutrition is the foundation of learning. Our meal programs help children stay focused, healthy, and excited to attend school.</p>
+          </div>
+          <div class="mission-card reveal" style="transition-delay: 0.2s">
+            <h3>Community Care &amp; Support</h3>
+            <p>We empower low-income families with medical camps, welfare aid, and dignity-focused worker programs that build resilience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOUNDER TRIBUTE ─── -->
+    <section class="founder">
+      <div class="founder-inner reveal">
+        <div class="founder-emblem">KCG</div>
+        <div class="section-tag" style="justify-content:center;">Honoring Our Inspiration</div>
+        <h2>Late Sh. Kailash Chand Gupta</h2>
+        <div class="founder-dates">23 September 1953 — 23 April 2015</div>
+        <p>A gentleman of silent compassion and tremendous humanitarian ideals, Sh. Kailash Chand Gupta believed that community growth is only authentic when it benefits the masses. He dedicated his life to facilitating support channels for low-income workers and educating local children.</p>
+        <p>His core values remain our guiding light. Every initiative undertaken by KCG Foundation is designed to carry his quiet, powerful legacy forward to the children of Haryana.</p>
+        
+        <!-- Additional CTA -->
+        <div style="margin-top: 24px;">
+          <a href="donate.html" class="btn btn-primary">Honor His Legacy by Supporting a Child</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CORE PROGRAMS PREVIEW ─── -->
+    <section class="programs" id="programsSection">
+      <div class="section-inner">
+        <div class="programs-header">
+          <div>
+            <div class="section-tag">What We Accomplish</div>
+            <h2 class="section-title">Core Focus <em>Programs</em></h2>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
+            <p class="section-sub">Empowering underprivileged youth and their families across basic educational, medical, and nutritional pathways.</p>
+            <!-- Additional CTA -->
+            <a href="donate.html" class="btn btn-primary" style="padding: 10px 24px; font-size: 13px;">Support a Program Today</a>
+          </div>
+        </div>
+        
+        <div class="programs-grid">
+          <!-- Program 1 -->
+          <div class="program-card reveal">
+            <div class="program-img">
+              <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&amp;q=80" alt="Students raising hands in primary school class" loading="lazy" />
+              <span class="program-chip">Education</span>
+            </div>
+            <div class="program-body">
+              <h3>Scholarship &amp; School Support</h3>
+              <p>We provide full educational scholarships, textbooks, quality writing stationery, and custom school uniforms to children of daily-wage laborers, removing financial barriers to primary schooling.</p>
+              <a href="programs.html" class="program-link" id="homeProgLink1">
+                Learn Details
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg></span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Program 2 -->
+          <div class="program-card reveal" style="transition-delay:0.1s">
+            <div class="program-img">
+              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&amp;q=80" alt="Nutrition distribution camp for underprivileged children" loading="lazy" />
+              <span class="program-chip">Nutrition</span>
+            </div>
+            <div class="program-body">
+              <h3>Mid-Day Meal &amp; Nutrition</h3>
+              <p>We execute wholesome nutritional drives and structured mid-day food programs. By feeding underprivileged students, we successfully boost school attendance, focus levels, and health markers.</p>
+              <a href="programs.html" class="program-link" id="homeProgLink2">
+                Learn Details
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg></span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Program 3 -->
+          <div class="program-card reveal" style="transition-delay:0.2s">
+            <div class="program-img">
+              <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&amp;q=80" alt="Volunteers supporting community construction families" loading="lazy" />
+              <span class="program-chip">Welfare</span>
+            </div>
+            <div class="program-body">
+              <h3>Worker &amp; Family Welfare</h3>
+              <p>We extend physical health camps, vocational rehabilitation workshops, and essential sanitation aid to construction laborers and low-income families, restoring dignity in community households.</p>
+              <a href="programs.html" class="program-link" id="homeProgLink3">
+                Learn Details
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── DYNAMIC GALLERY PREVIEW ─── -->
+    <section class="gallery" id="gallerySection">
+      <div class="section-inner">
+        <div class="section-tag">Capturing Real Change</div>
+        <h2 class="section-title">Moments of <em>Transformation</em></h2>
+        <div class="gallery-grid reveal">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?w=700&amp;q=80" alt="Happy school children study together at their desk" loading="lazy" />
+            <div class="gallery-overlay"><span>Active Classrooms, Haryana</span></div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=500&amp;q=80" alt="Hot nutritious meal served to children" loading="lazy" />
+            <div class="gallery-overlay"><span>Nutritious Food Drives</span></div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500&amp;q=80" alt="Smiling group of diverse children playing" loading="lazy" />
+            <div class="gallery-overlay"><span>Pure Smiles of Joy</span></div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=500&amp;q=80" alt="Students opening new books proudly" loading="lazy" />
+            <div class="gallery-overlay"><span>Distribution of Study Supplies</span></div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=500&amp;q=80" alt="Community support session with local elders" loading="lazy" />
+            <div class="gallery-overlay"><span>Grassroots Worker Assistance</span></div>
+          </div>
+        </div>
+
+        <!-- Additional CTA -->
+        <div style="text-align: center; margin-top: 36px;">
+          <a href="gallery.html" class="btn btn-outline">Browse Full Impact Gallery</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── HELP GRID (GET INVOLVED) ─── -->
+    <section class="help" id="getInvolvedSection">
+      <div class="section-inner">
+        <div style="text-align:center; max-width:600px; margin:0 auto 40px">
+          <div class="section-tag" style="justify-content:center;">Make a Real Impact</div>
+          <h2 class="section-title">Many Ways to <em>Join Hands</em></h2>
+        </div>
+        
+        <div class="help-grid">
+          <!-- Card 1 -->
+          <div class="help-card reveal">
+            <div class="help-icon">
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </span>
+            </div>
+            <h3>Financial Donations</h3>
+            <p>Direct monetary support funds scholarships, wholesome food rations, and urgent medical aid. Every contribution empowers a child in Haryana.</p>
+            <a href="donate.html" class="btn btn-primary" id="helpDonateBtn">Support Financially</a>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="help-card reveal" style="transition-delay:0.1s">
+            <div class="help-icon">
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </span>
+            </div>
+            <h3>Be a Volunteer</h3>
+            <p>Devote your valuable skills, teaching hours, or medical competence at our local drives. Inspire positive change directly on the ground.</p>
+            <a href="volunteer.html" class="btn btn-outline" id="helpVolunteerBtn">Register to Volunteer</a>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="help-card reveal" style="transition-delay:0.2s">
+            <div class="help-icon">
+              <span class="icon">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+              </span>
+            </div>
+            <h3>Spread Awareness</h3>
+            <p>Advocate for our social initiatives. Sharing our community programs on social media draws crucial funding and builds strong volunteer networks.</p>
+            <a href="contact.html" class="btn btn-outline" id="helpSpreadBtn">Partner With Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── COMMUNITY TESTIMONIALS ─── -->
+    <section class="testimonials" id="testimonialsSection">
+      <div class="section-inner">
+        <div style="text-align:center; max-width:600px; margin:0 auto 40px">
+          <div class="section-tag" style="justify-content:center;">True Community Feedback</div>
+          <h2 class="section-title">Voices of <em>Empowerment</em></h2>
+        </div>
+        
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card reveal">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"Through KCG Foundation's school scholarship, my eldest daughter kept pursuing education smoothly. Today, she is studying diligently in Class 10 and aims to serve as a doctor."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </span>
+              </div>
+              <div class="testimonial-info">
+                <strong>Sunita Devi</strong>
+                <span>Mother, Panipat (Haryana)</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card reveal" style="transition-delay:0.1s">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"The nutritious mid-day food drives have resolved standard starvation issues for our children. They go to primary school with positive energy and healthy focus."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </span>
+              </div>
+              <div class="testimonial-info">
+                <strong>Ramesh Kumar</strong>
+                <span>Construction Worker, Rohtak</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card reveal" style="transition-delay:0.2s">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"Volunteering for this foundation opened my eyes. The team ensures absolute transparency and operates with heartfelt empathy towards every family in the program."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </span>
+              </div>
+              <div class="testimonial-info">
+                <strong>Priya Sharma</strong>
+                <span>Volunteer Teacher, Sonipat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CALL TO ACTION BANNER ─── -->
+    <section class="cta-banner">
+      <div class="cta-inner reveal">
+        <h2>A Child's Future Shouldn't Depend on Circumstance</h2>
+        <p>Support KCG Foundation today to bring quality schooling and health dignity within reach of Haryana's rural families. Your contribution transforms lives.</p>
+        <a href="donate.html" class="btn btn-white" id="ctaSupportBtn">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+          Donate to KCG Foundation
+        </a>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT SECTION ─── -->
+    <section class="contact" id="contactSection">
+      <div class="section-inner">
+        <div class="contact-grid">
+          <div class="contact-info reveal-left">
+            <div class="section-tag">Stay Connected</div>
+            <h3>Let's <em>Collaborate</em></h3>
+            <p>Do you have inquiries about our active educational programs, wish to register your local organization for a drive, or are ready to schedule a donation? Drop us a line.</p>
+            
+            <div class="contact-items">
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <span class="icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
+                </div>
+                <div class="contact-item-text">
+                  <strong>Email Channels</strong>
+                  <a href="mailto:info@kcgfoundation.org">info@kcgfoundation.org</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+                </div>
+                <div class="contact-item-text">
+                  <strong>Phone / WhatsApp</strong>
+                  <a href="tel:+919899702065">+91 98997 02065</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon">
+                  <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+                </div>
+                <div class="contact-item-text">
+                  <strong>Registered Location</strong>
+                  <span>Haryana, India</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-form reveal-right">
+            <h3>Quick Message Form</h3>
+            <form id="homeContactForm" onsubmit="handleSubmit(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstNameInput">First Name</label>
+                  <input type="text" id="firstNameInput" placeholder="Ramesh" required class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label for="lastNameInput">Last Name</label>
+                  <input type="text" id="lastNameInput" placeholder="Kumar" required class="form-input" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="telInput">Phone Number</label>
+                <input type="tel" id="telInput" placeholder="+91 98765 43210" required class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="rolePurposeSelect">I want to</label>
+                <select id="rolePurposeSelect" class="form-select">
+                  <option value="donation">Make a Donation</option>
+                  <option value="volunteer">Volunteer with KCG</option>
+                  <option value="partner">Partner / Collaborate</option>
+                  <option value="query">General Query</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="messageTextArea">Message</label>
+                <textarea id="messageTextArea" placeholder="Share your message details..." required class="form-textarea"></textarea>
+              </div>
+              <button type="submit" class="form-submit-btn" id="submitMessageBtn">
+                Send Message
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── FOOTER SECTION ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html" style="margin-bottom: 16px;">
+            <img src="favicon.png" alt="KCG Foundation Logo" />
+            <div class="nav-logo-text">
+              <strong>KCG Foundation</strong>
+              <span>बहुजनहिताय बहुजन सुखाय</span>
+            </div>
+          </a>
+          <p>A registered public benefit non-profit organization focused on promoting basic childhood schooling, community healthcare, and physical welfare for daily wage families in Haryana, India.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" aria-label="KCG Foundation on Facebook" title="Facebook">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
+            </a>
+            <a href="#" class="social-btn" aria-label="KCG Foundation on Instagram" title="Instagram">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/></svg></span>
+            </a>
+            <a href="tel:+919899702065" class="social-btn" aria-label="Call KCG Foundation over phone" title="Phone">
+              <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="about.html#tributeSection">The Founder</a></li>
+            <li><a href="programs.html">Active Programs</a></li>
+            <li><a href="gallery.html">Impact Gallery</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <ul>
+            <li><a href="donate.html">Donate Support</a></li>
+            <li><a href="volunteer.html">Be a Volunteer</a></li>
+            <li><a href="contact.html">Partner With Us</a></li>
+            <li><a href="contact.html">Reach Us</a></li>
+          </ul>
+        </div>
+        
+                <div class="footer-col footer-newsletter">
+          <h4>Newsletter</h4>
+          <p>Subscribe to KCG updates and get stories, impact news, and event invitations delivered to your inbox.</p>
+          <form class="newsletter-form">
+            <input type="email" name="newsletterEmail" placeholder="Email address" required />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="tel:+919899702065">+91 98997 02065</a></li>
+            <li><a href="mailto:info@kcgfoundation.org">info@kcgfoundation.org</a></li>
+            <li><span>Haryana, India</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span class="current-year"></span> KCG Foundation. All rights reserved. Registered Public Benefit Organization, Haryana, India.</p>
+        <p>Built for <a href="index.html">a better tomorrow</a></p>
+        <p><button class="btn btn-small btn-outline" onclick="openShareModal(document.title, window.location.href)">Share this page</button></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── FLOATING CALL / WHATSAPP WIDGET ─── -->
+  <a href="tel:+919899702065" class="float-call" aria-label="Call KCG Foundation Office" title="Call Us Now">
+    <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+  </a>
+
+  <!-- ─── LINK TO GLOBAL JS ─── -->
+  <script src="script.js"></script>
+  <div class="share-modal" id="shareModal" aria-hidden="true">
+    <div class="modal-overlay" onclick="closeShareModal()"></div>
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeShareModal()" aria-label="Close share dialog">�</button>
+      <h3>Share this page</h3>
+      <p id="shareModalTitle">Share this update with your friends and supporters.</p>
+      <div class="share-actions">
+        <button class="btn btn-primary" id="copyShareLinkBtn">Copy link</button>
+        <button class="btn btn-outline" id="openNativeShareBtn">Open share menu</button>
+      </div>
+      <div class="share-link-box">
+        <input type="text" id="shareModalLink" readonly />
+      </div>
+    </div>
+  </div></body>
+</html>
+
+
+
+

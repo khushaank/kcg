@@ -16,7 +16,7 @@
     "category": "Welfare",
     "readingTime": "4 min read",
     "excerpt": "Discover how KCG Foundation's health camps bring medical care, dignity supplies, and rehabilitation to hard-working families in rural Haryana.",
-    "featuredImage": "https://images.unsplash.com/photo-1580281657529-9ce9337e1e3c?w=900&q=80",
+    "featuredImage": "images/Health-camp.jpg",
     "content": "<p>Our community health camps provide medical evaluations, hygiene kits, and compassionate counseling to daily wage earners and their loved ones. These camps are designed to restore dignity and reduce the burden of untreated illness.</p><h2>Designing Camps Around Local Needs</h2><p>Each camp meets families where they are, offering free screenings, medication, and hygiene education. We work with local volunteers so care is trusted and accessible.</p><h3>Core services delivered:</h3><ul><li>General health checkups</li><li>Basic medicines &amp; treatment referrals</li><li>Soap, sanitary kits, and clean drinking water support</li></ul><h2>Beyond Treatment</h2><p>Our goal is not just one-time care. We also connect families with local health resources and teach simple hygiene habits that reduce illness over time.</p>"
   },
   {
@@ -28,5 +28,15 @@
     "excerpt": "Read about the scholarship program that helps motivated children access tuition, supplies, and mentorship across Haryana.",
     "featuredImage": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?w=900&q=80",
     "content": "<p>The KCG scholarship program is built to reward determination and remove financial barriers. Selected students receive support for school fees, uniforms, books, and mentorship throughout the academic year.</p><h2>Supporting Students End to End</h2><p>Beyond payments, our scholarship families receive tailored guidance, tracking attendance and academic progress, while ensuring students feel supported at home.</p><h3>Student success looks like:</h3><ul><li>Improved grades and confidence</li><li>Regular attendance even during lean months</li><li>Stronger family stability thanks to reduced costs</li></ul><h2>Our Vision for 2026</h2><p>We aim to grow the scholarship cohort this year, reaching more rural children so their dreams are backed by real resources and consistent care.</p>"
+  },
+  {
+    "slug": "restoring-sight-cataract-surgery",
+    "title": "Restoring Sight Through Cataract Surgery Support",
+    "date": "June 2026",
+    "category": "Healthcare",
+    "readingTime": "3 min read",
+    "excerpt": "KCG Foundation recently supported a cataract operation, helping restore vision and improve quality of life for a beneficiary and their family.",
+    "featuredImage": "images/cataract-operation.jpg",
+    "content": "<p>KCG Foundation recently facilitated a cataract surgery for a community member suffering from severe vision impairment. Access to timely medical treatment restored eyesight and enabled the beneficiary to regain independence in daily life.</p><h2>Why This Matters</h2><p>Vision loss affects not only an individual but also their family and livelihood. Through community healthcare support initiatives, KCG Foundation continues to assist vulnerable individuals in accessing essential medical care.</p><h2>Impact</h2><ul><li>Successful cataract surgery completed</li><li>Improved quality of life and independence</li><li>Reduced healthcare burden on the family</li></ul><p>This initiative reflects our commitment to dignity, healthcare access, and community welfare.</p>"
   }
 ]

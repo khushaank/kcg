@@ -1,27 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Article Viewer — KCG Foundation</title>
+  <title>Article Viewer - KCG Foundation</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="favicon.png" />
   <meta name="theme-color" content="#0A192F" />
   <style>
     /* Small adjustments specific to viewer */
-    .viewer-main { padding: 120px 5% 60px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 40px; }
-    .viewer-article h1 { margin-bottom: 8px; }
-    .viewer-article .featured { width:100%; border-radius:12px; margin: 18px 0; }
-    .toc-sidebar { position: sticky; top:120px; align-self:start; }
-    .toc-list { list-style: none; padding-left: 0; }
-    .toc-item { margin: 6px 0; }
-    .viewer-controls { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
-    .viewer-back { margin-right: auto; }
+    .viewer-main {
+      padding: 120px 5% 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+    }
+
+    .viewer-article h1 {
+      margin-bottom: 8px;
+    }
+
+    .viewer-article .featured {
+      width: 100%;
+      border-radius: 12px;
+      margin: 18px 0;
+    }
+
+    .toc-sidebar {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .toc-item {
+      margin: 6px 0;
+    }
+
+    .viewer-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .viewer-back {
+      margin-right: auto;
+    }
   </style>
 </head>
+
 <body>
-  <!-- header (copied from blog/header) -->
+
   <header class="site-header">
     <nav id="mainNav">
       <a href="index.html" class="nav-logo" id="headerLogoLink">
@@ -40,7 +78,8 @@
         <li><a href="contact.html">Contact</a></li>
         <li><a href="donate.html" class="nav-cta">Donate Now</a></li>
       </ul>
-      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false">
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open navigation menu"
+        aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </nav>
@@ -75,7 +114,7 @@
     </aside>
   </main>
 
-  <!-- footer (copied) -->
+
   <footer>
     <div class="footer-inner">
       <div class="footer-top">
@@ -87,7 +126,8 @@
               <span>बहुजनहिताय बहुजन सुखाय</span>
             </div>
           </a>
-          <p>A registered public benefit organization delivering education, nutrition, and welfare support to underprivileged children and families in Haryana.</p>
+          <p>A registered public benefit organization delivering education, nutrition, and welfare support to
+            underprivileged children and families in Haryana.</p>
         </div>
 
         <div class="footer-col">
@@ -104,7 +144,8 @@
           <h4>Newsletter</h4>
           <p>Join our mailing list to receive the latest blog stories and impact updates directly in your inbox.</p>
           <form class="newsletter-form" id="footerNewsletterForm">
-            <input type="email" name="newsletterEmail" id="footerNewsletterEmail" placeholder="Email address" required />
+            <input type="email" name="newsletterEmail" id="footerNewsletterEmail" placeholder="Email address"
+              required />
             <button type="submit" class="btn btn-primary">Subscribe</button>
           </form>
         </div>
@@ -125,7 +166,7 @@
     </div>
   </footer>
 
-  <!-- share modal (reused) -->
+
   <div class="share-modal" id="shareModal" aria-hidden="true">
     <div class="modal-overlay" onclick="closeShareModal()"></div>
     <div class="modal-card">
@@ -248,14 +289,14 @@
     document.getElementById('pulseNewsletterForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('pulseNewsletterEmail').value;
-      alert('Thanks — we saved ' + email + ' (local demo)');
+      alert('Thanks - we saved ' + email + ' (local demo)');
       document.getElementById('pulseNewsletterForm').reset();
     });
 
     // notify opener when window unloads so overlay is removed
     window.addEventListener('beforeunload', () => {
       if (window.opener && !window.opener.closed) {
-        try { window.opener.postMessage({ type: 'pulseClosed' }, '*'); } catch (e) {}
+        try { window.opener.postMessage({ type: 'pulseClosed' }, '*'); } catch (e) { }
       }
     });
 
@@ -263,4 +304,5 @@
     initFromHashOrOpener();
   </script>
 </body>
+
 </html>

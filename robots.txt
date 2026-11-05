@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Update the sitemap URL to your canonical domain when you deploy
-Sitemap: https://khushaank.github.io/KCG-foundation/sitemap.xml
+Sitemap: https://kcg.b2bindustrial.in/sitemap.xml

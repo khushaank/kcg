@@ -1,0 +1,50 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {foundationDefaults,mergeFoundation,productGallery,publicationErrors} from '../src/content.js';
+import {mediaSource,filmEmbed} from '../src/media.js';
+import {foundationHome,makerProduct,makingFilm} from '../src/experience.js';
+
+test('maker publication requires the person, film, process and 2–3 real photographs',()=>{
+  const maker={name:'Test Maker',portrait_url:'https://example.com/portrait.jpg',life_story:'Their approved life story',learning_story:'How they learned',signature_style:'Their personal style',cultural_roots:'Their village and tradition'};
+  assert.deepEqual(publicationErrors('makers',maker),[]);
+  assert.ok(publicationErrors('makers',{...maker,portrait_url:''}).includes('Maker portrait'));
+  const p={title:'A piece',maker_id:'test',image:'/one.jpg',gallery:[{url:'/one.jpg'},{url:'/two.jpg'}],making_video_url:'https://example.com/making.mp4',making_video_transcript:'The maker describes the process.',origin:'Haryana, India',technique:'Wheel thrown',significance:'Cultural meaning',description:'Made by hand',materials:'Clay',dimensions:'20 cm',care:'Hand wash',process_steps:[{title:'Shaping',description:'The maker shapes the clay.'}]};
+  assert.deepEqual(publicationErrors('products',p),[]);
+  assert.ok(publicationErrors('products',{...p,gallery:[{url:'/one.jpg'}]}).includes('At least two different product photographs'));
+  assert.ok(publicationErrors('products',{...p,gallery:[{url:'/one.jpg'},{url:'/one.jpg'}]}).includes('At least two different product photographs'));
+  assert.ok(publicationErrors('products',{...p,making_video_url:''}).includes('Making video'));
+  assert.equal(productGallery({...p,gallery:[{url:'/1'},{url:'/2'},{url:'/3'},{url:'/4'}]}).length,3);
+  assert.equal(mergeFoundation({hero_heading:'Edited by director'}).hero_heading,'Edited by director');
+  assert.equal(mergeFoundation(null).mission,foundationDefaults.mission);
+});
+test('media rejects executable URLs and only embeds supported film providers',()=>{
+  assert.equal(mediaSource('javascript:alert(1)'), '');
+  assert.equal(mediaSource('data:text/html,test'), '');
+  assert.equal(mediaSource('//untrusted.example/video'), '');
+  assert.equal(mediaSource('http://untrusted.example/video.mp4'), '');
+  assert.equal(mediaSource('/images/piece.jpg'), '/images/piece.jpg');
+  assert.equal(filmEmbed('https://youtu.be/Abc123def45'),'https://www.youtube-nocookie.com/embed/Abc123def45?autoplay=1');
+  assert.equal(filmEmbed('https://youtube.com.evil.example/watch?v=Abc123def45'),'');
+  assert.equal(filmEmbed('https://vimeo.com/123456'),'https://player.vimeo.com/video/123456?dnt=1&autoplay=1');
+});
+test('the public journey leads with foundation work and gives films and maker stories priority',()=>{
+  const esc=value=>String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+  const maker={id:'person',name:'A real maker',craft:'Pottery',location:'Haryana',portrait_url:'https://example.com/person.jpg',life_story:'Their full life story.',learning_story:'Learning from a teacher.',signature_style:'A distinctive style.',cultural_roots:'A village tradition.'};
+  const piece={id:'piece',title:'A handmade piece',slug:'a-piece',price_paise:100000,stock:2,description:'<script>not executable</script>',materials:'Clay',gallery:[{url:'/front.jpg',alt:'Front'},{url:'/side.jpg',alt:'Side'},{url:'/detail.jpg',alt:'Detail'}],making_video_url:'https://example.com/making.mp4',making_video_captions_url:'https://example.com/captions.vtt',making_video_transcript:'The maker explains the process.',process_steps:[{title:'Shaping',description:'Patient work.'}]};
+  const c={site:foundationDefaults,esc,imageUrl:esc,icon:()=>'<svg></svg>',flower:'',link:()=>'',sectionHead:()=>'',posts:[],postCard:()=>'',makers:[maker],products:[piece],card:()=>'',money:()=> '₹1,000',makerHref:()=>'/makers.html',productHref:()=>'/product.html',previewNote:()=>''};
+  const home=foundationHome(c);
+  assert.ok(home.indexOf('foundation-programs')<home.indexOf('home-shop-addon'));
+  assert.equal(home.includes('data-action="add"'),false);
+  const product=makerProduct(piece,maker,c);
+  assert.ok(product.indexOf('<video controls')<product.indexOf('id="meet-maker"'));
+  assert.ok(product.indexOf('id="meet-maker"')<product.indexOf('class="piece-gallery"'));
+  assert.equal((product.match(/data-action="gallery-image"/g)||[]).length,3);
+  assert.ok(product.includes('https://example.com/person.jpg'));
+  assert.ok(product.includes('<track kind="captions"'));
+  assert.ok(product.includes('Their full life story.'));
+  assert.ok(product.includes('A distinctive style.'));
+  assert.equal(product.includes('<script>'),false);
+  const embedded=makingFilm({...piece,making_video_url:'https://youtu.be/Abc123def45'},maker,c);
+  assert.ok(embedded.includes('data-action="load-film"'));
+  assert.equal(embedded.includes('<iframe'),false,'third-party players should only load after the visitor chooses to watch');
+});

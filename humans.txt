@@ -1,6 +1,6 @@
 /* TEAM */
 KCG Foundation
-Web: https://khushaank.github.io/KCG-foundation/
+Web: https://kcg.b2bindustrial.in/
 Contact: info@b2bindustrial.in
 
 /* THANKS */

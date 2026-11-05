@@ -1,0 +1,12 @@
+project_id = "kcg-foundation"
+
+# New publishable API keys are checked inside these functions. create-checkout
+# and verify-payment explicitly validate the user JWT with Supabase Auth.
+[functions.create-checkout]
+verify_jwt = false
+[functions.verify-payment]
+verify_jwt = false
+[functions.payment-webhook]
+verify_jwt = false
+[functions.submit-public-form]
+verify_jwt = false

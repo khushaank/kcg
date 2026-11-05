@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build:production"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# Security headers are generated into dist/_headers during the Vite build.
+# Only the two public VITE_SUPABASE_* values belong in this build environment.

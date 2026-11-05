@@ -1,0 +1,27 @@
+{
+  "name": "kcg-foundation",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "build:production": "node scripts/production-build.mjs",
+    "check:security": "node scripts/security-check.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "prebuild": "npm run optimize:images",
+    "predev": "npm run optimize:images"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.15",
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "lighthouse": "13.5.0",
+    "sharp": "0.35.5",
+    "vite": "8.3.5"
+  }
+}

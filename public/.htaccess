@@ -1,0 +1,23 @@
+# Build generates production policy in dist/.htaccess. Deploy dist only.
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://checkout.razorpay.com https://cdn.razorpay.com; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; media-src 'self' https: blob:; connect-src 'self' https://*.razorpay.com; frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://*.razorpay.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), usb=(), serial=(), unload=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always set Strict-Transport-Security "max-age=31536000"
+  <Files "seva-karyalaya-7c9e4b2d.html">
+    Header always set Cache-Control "no-store, max-age=0"
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+    Header always set Referrer-Policy "same-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; media-src 'self' https: blob:; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+  </Files>
+  <FilesMatch "^(account|checkout)\.html$">
+    Header always set Cache-Control "no-store, max-age=0"
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+  </FilesMatch>
+</IfModule>
+Options -Indexes
+ErrorDocument 404 /404.html

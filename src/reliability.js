@@ -29,6 +29,9 @@ export function showSiteError(message){
 }
 
 export function installErrorHandling(){
+ document.querySelectorAll('img').forEach(img=>img.draggable=false);
+ // Capture also covers product galleries and staff previews added later.
+ for(const type of ['dragstart','selectstart'])document.addEventListener(type,event=>{if(event.target instanceof Element&&event.target.closest('img,picture'))event.preventDefault();},true);
  window.addEventListener('unhandledrejection',()=>showSiteError('An action could not finish. Your entries have been kept. If you were paying, check your account before trying another payment.'));
  window.addEventListener('error',event=>{
   const image=event.target;

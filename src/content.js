@@ -7,8 +7,8 @@ export const foundationDefaults = {
   hero_heading: 'A legacy of care.',
   hero_emphasis: 'A future of possibility.',
   hero_description: 'Helping children learn, families thrive, and communities grow stronger. Carrying forward the compassionate legacy of Late Sh. Kailash Chand Gupta in Haryana.',
-  hero_image: '/images/Health-camp.jpg',
-  hero_image_alt: 'KCG Foundation community health camp in Haryana',
+  hero_image: '/images/rural-health-camp-illustration.jpg',
+  hero_image_alt: 'AI-generated illustration of a village health camp in rural Haryana, with a healthcare worker checking an older man’s blood pressure',
   mission: 'We believe that every child deserves the chance to learn, every family deserves dignity, and care should reach the people who need it.',
   story: 'KCG Foundation was established in loving memory of Late Sh. Kailash Chand Gupta. His vision of selfless service lives on through our work with children, daily-wage workers, and families in Haryana.\n\nOur focus is education, nutrition, and community wellbeing. From school essentials and educational support to health camps and medical assistance, we work to remove barriers to a better everyday.',
   quote: 'For the welfare of many, for the happiness of many.',
@@ -33,6 +33,9 @@ export function mergeFoundation(value) {
   const content = { ...foundationDefaults };
   for(const key of Object.keys(foundationDefaults))if(key!=='programs'&&typeof source[key]==='string')content[key]=source[key];
   content.name = FOUNDATION_NAME;
+  // Upgrade the old default hero saved in the CMS; keep custom uploaded heroes.
+  if(['/images/Health-camp.jpg','images/Health-camp.jpg'].includes(content.hero_image))content.hero_image=foundationDefaults.hero_image;
+  content.hero_image_alt=imageAlt(content.hero_image,content.hero_image_alt);
   content.programs = (Array.isArray(source.programs) ? source.programs : foundationDefaults.programs).filter(p=>p&&typeof p==='object'&&!Array.isArray(p)).slice(0,12).map(p=>{
     const program=Object.fromEntries(['title','subtitle','description','image','alt','link'].map(key=>[key,typeof p[key]==='string'?p[key]:'']));
     program.alt=imageAlt(program.image,program.alt);program.image=siteImage(program.image);return program;

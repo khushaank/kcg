@@ -7,7 +7,7 @@ for(const name of (await readdir(directory)).filter(n=>/\.(?:jpg|png)$/i.test(n)
  const widths=[...new Set([320,640,960,1280,meta.width].filter(w=>w<=meta.width))].sort((a,b)=>a-b);
  const variants=[];
  for(const width of widths){
-  const smallPhoto=name==='Health-camp.jpg',file=`${base}-${width}.${smallPhoto?'avif':'webp'}`;
+  const smallPhoto=['Health-camp.jpg','rural-health-camp-illustration.jpg'].includes(name),file=`${base}-${width}.${smallPhoto?'avif':'webp'}`;
   const resized=image.clone().resize({width,withoutEnlargement:true});
   await (smallPhoto?resized.avif({quality:55,effort:6}):resized.webp({quality:65,effort:5})).toFile(directory+'/optimized/'+file);
   variants.push({url:'/images/optimized/'+file,width,height:Math.round(meta.height*width/meta.width)});

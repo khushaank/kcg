@@ -32,17 +32,10 @@ export function securityHeaders(pathname='/',supabaseUrl='',{dev=false,https=tru
  if(pathname.endsWith('/'+STAFF_PAGE))headers['Referrer-Policy']='same-origin';
  return headers;
 }
-export function hostingHeaderFiles(supabaseUrl){
- const general=securityHeaders('/',supabaseUrl),payment=securityHeaders('/checkout.html',supabaseUrl);
- // Same CSP on all public pages allows the payment SDK only from its named hosts.
- // This avoids conflicting CSP headers when a static host merges wildcard rules.
- const common={...general,'Content-Security-Policy':payment['Content-Security-Policy']};
- const section=(path,headers)=>path+'\n'+Object.entries(headers).map(([k,v])=>'  '+k+': '+v).join('\n')+'\n';
- const extra={'Cache-Control':'no-store, max-age=0','X-Robots-Tag':'noindex, nofollow, noarchive'};
- const staff=securityHeaders('/'+STAFF_PAGE,supabaseUrl);
- // Staff CSP intersects the common policy: no payment scripts or inline styles in admin.
- const staffExtra={...extra,'Referrer-Policy':'same-origin','Content-Security-Policy':staff['Content-Security-Policy']};
- const headers=section('/*',common)+'\n'+section('/assets/*',{'Cache-Control':'public, max-age=31536000, immutable'})+'\n'+section('/images/*',{'Cache-Control':'public, max-age=604800'})+'\n'+section('/fonts/*',{'Cache-Control':'public, max-age=604800'})+'\n'+section('/'+STAFF_PAGE,staffExtra)+'\n'+section('/account.html',extra)+'\n'+section('/checkout.html',extra);
- const apache='<IfModule mod_headers.c>\n'+Object.entries(common).map(([k,v])=>'  Header always set '+k+' "'+v+'"').join('\n')+'\n  <Files "'+STAFF_PAGE+'">\n'+Object.entries(staffExtra).map(([k,v])=>'    Header always set '+k+' "'+v+'"').join('\n')+'\n  </Files>\n  <FilesMatch "^(account|checkout)\\.html$">\n    Header always set Cache-Control "no-store, max-age=0"\n    Header always set X-Robots-Tag "noindex, nofollow, noarchive"\n  </FilesMatch>\n</IfModule>\nOptions -Indexes\nErrorDocument 404 /404.html\n';
- return {headers,apache};
+export function securityMetaTags(pathname,supabaseUrl,{dev=false}={}){
+ const headers=securityHeaders(pathname,supabaseUrl,{dev,https:false});
+ // frame-ancestors needs an HTTP header and is not supported in a meta policy.
+ const policy=headers['Content-Security-Policy'].split('; ').filter(rule=>!rule.startsWith('frame-ancestors ')).join('; ');
+ const escape=value=>value.replaceAll('&','&amp;').replaceAll('"','&quot;');
+ return '<meta http-equiv="Content-Security-Policy" content="'+escape(policy)+'"><meta name="referrer" content="'+headers['Referrer-Policy']+'">';
 }

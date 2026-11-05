@@ -3,7 +3,7 @@ import {foundationDefaults,foundationGalleryDefaults,mergeFoundation} from '../s
 import {foundationHome,foundationStory,foundationPrograms,makerDirectory} from '../src/experience.js';
 import {siteHeader,siteFooter,contactPage,legalPage,galleryPage,journalCard,collectionPage} from '../src/public-pages.js';
 import {icon,esc,link,sectionHead} from '../src/ui.js';
-import {deliveredImage,withResponsiveImages} from '../src/image-delivery.js';
+import {deliveredImage,withResponsiveImages,prioritizeLeadImage} from '../src/image-delivery.js';
 import {money} from '../src/cart.js';
 
 const fields='id,slug,title,date,category,readingTime,featuredImage';
@@ -32,5 +32,6 @@ export function prerenderPage(page,snapshot){
  if(!renderers[page])return null;
  const model={site:snapshot.site,posts:['index','blog'].includes(page)?snapshot.posts.slice(0,page==='index'?3:1000):[],galleryItems:page==='gallery'?snapshot.galleryItems:foundationGalleryDefaults,makers:['makers','shop'].includes(page)?snapshot.makers:[],products:page==='shop'?snapshot.products:[]};
  const json=JSON.stringify(model).replace(/</g,'\\u003c');
- return withResponsiveImages('<div id="app" data-prerendered="true">'+siteHeader(c)+'<main id="main">'+renderers[page]()+'</main>'+siteFooter(c)+'</div><script type="application/json" id="public-snapshot">'+json+'</script>');
+ const content=renderers[page]();
+ return withResponsiveImages('<div id="app" data-prerendered="true">'+siteHeader(c)+'<main id="main">'+(['programs','blog','gallery'].includes(page)?prioritizeLeadImage(content):content)+'</main>'+siteFooter(c)+'</div><script type="application/json" id="public-snapshot">'+json+'</script>');
 }

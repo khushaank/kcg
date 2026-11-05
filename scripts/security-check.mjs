@@ -1,6 +1,7 @@
 import {readdir,readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const files=await readdir('dist',{recursive:true});
+assert.ok(!files.includes('_headers')&&!files.includes('.htaccess'),'Unused host-specific configuration in GitHub Pages build');
 for(const file of files){
  assert.ok(!/(^|[/\\])(?:\.env(?:\.|$)|\.git|supabase|media-inbox|node_modules)(?:[/\\]|$)/.test(file),'Private file in build: '+file);
  if(!/\.(?:js|html)$/.test(file))continue;
@@ -14,10 +15,10 @@ for(const file of files){
   assert.ok(/type="application\/(?:ld\+)?json"/.test(match[1]),'Inline executable script in '+file);
   JSON.parse(match[2]);
  }
+ if(file.endsWith('.html')){
+  assert.ok(source.includes('http-equiv="Content-Security-Policy"'),'Missing GitHub Pages content policy in '+file);
+  assert.ok(source.includes("script-src 'self'"),'Missing script restriction in '+file);
+ }
 }
-const headers=await readFile('dist/_headers','utf8');
-assert.ok(headers.includes("script-src 'self'"));
-assert.ok(!headers.includes('unsafe-eval'));
-assert.ok(headers.includes("frame-ancestors 'none'"));
-assert.ok(headers.includes('unload=()'));
-console.log('Production security checks passed: no eval, unload handlers, inline executable scripts or private build files; JSON data validated and restrictive headers included.');
+assert.equal((await readFile('dist/CNAME','utf8')).trim(),'kcg.b2bindustrial.in');
+console.log('Production security checks passed: no eval, unload handlers, inline executable scripts or private build files; page-level CSP and GitHub Pages domain included.');

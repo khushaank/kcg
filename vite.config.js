@@ -1,10 +1,10 @@
 import { defineConfig,loadEnv } from 'vite';
 import { readdirSync,writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import {securityHeaders,hostingHeaderFiles} from './scripts/security-headers.js';
+import {securityHeaders,securityMetaTags} from './scripts/security-headers.js';
 import {readPublicSnapshot,prerenderPage} from './scripts/prerender.mjs';
 import {pageSeo,canonicalUrl,organizationSchema,sitemapXml,SITE_ORIGIN} from './src/seo.js';
-import {deliveredImage} from './src/image-delivery.js';
+import {deliveredImage,responsiveImages,IMAGE_SIZES} from './src/image-delivery.js';
 
 export default defineConfig(({mode,command})=>{
  const values=loadEnv(mode,process.cwd(),'VITE_');
@@ -18,6 +18,7 @@ export default defineConfig(({mode,command})=>{
  return {
   plugins:[{name:'kcg-security-headers',configureServer:middleware(true),configurePreviewServer:middleware(false),async transformIndexHtml(html,context){
    const page=context.path.split('/').pop().replace('.html','') || 'index';
+   html=html.replace('<head>','<head>\n'+securityMetaTags(context.path,VITE_SUPABASE_URL,{dev:command==='serve'&&mode!=='production'}));
    const info=pageSeo[page],canonical=canonicalUrl(page);
    if(info){html=html.replace(/<title>[^<]*<\/title>/,'<title>'+info[0]+'</title>').replace(/<meta name="description"[^>]*>/,'<meta name="description" content="'+info[1]+'">');
     html=html.replace(/\s*<link rel="canonical"[^>]*>/g,'').replace(/\s*<meta property="og:(?:title|description|url|image)"[^>]*>/g,'');
@@ -30,12 +31,12 @@ export default defineConfig(({mode,command})=>{
     const data=await snapshot,body=prerenderPage(page,data);
     if(body)html=html.replace('<div id="app"></div>',body).replace(/<noscript>[\s\S]*?<\/noscript>/,'');
     if(page==='index')html=html.replace('</head>','<script type="application/ld+json">'+JSON.stringify(organizationSchema(data.site)).replace(/</g,'\\u003c')+'</script></head>');
-    if(page==='index')html=html.replace('</head>','<link rel="preload" as="image" href="'+deliveredImage(data.site.hero_image)+'" fetchpriority="high"></head>');
+    if(page==='index')html=html.replace('</head>','<link rel="preload" as="image" href="'+deliveredImage(data.site.hero_image)+'"'+(responsiveImages(data.site.hero_image)?' imagesrcset="'+responsiveImages(data.site.hero_image)+'" imagesizes="'+IMAGE_SIZES+'"':'')+' fetchpriority="high"></head>');
    }
    if(page==='product')html=html.replace(/<link rel="canonical"[^>]*>/g,'');
    if(!info&&['account','checkout','404'].includes(page))html=html.replace('</head>','<meta name="robots" content="noindex,follow"></head>');
    return html;
-  },async closeBundle(){if(command!=='build')return;const files=hostingHeaderFiles(VITE_SUPABASE_URL);writeFileSync(resolve('dist/_headers'),files.headers);writeFileSync(resolve('dist/.htaccess'),files.apache);writeFileSync(resolve('dist/sitemap.xml'),sitemapXml(await snapshot));}}],
+  },async closeBundle(){if(command!=='build')return;writeFileSync(resolve('dist/sitemap.xml'),sitemapXml(await snapshot));}}],
   server: { fs: { deny: ['**/.env*','**/*.{crt,pem,key}','**/.secrets*','**/.git/**','**/.aws/**','**/.codex/**','**/.agents/**','**/artifacts/**','**/media-inbox/**','**/supabase/**'] } },
   build: { rollupOptions: { input: Object.fromEntries(readdirSync('.').filter(f => f.endsWith('.html')).map(f => [f.replace('.html', ''), resolve(f)])) } },
  };

@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
-import {securityHeaders,hostingHeaderFiles,STAFF_PAGE} from '../scripts/security-headers.js';
+import {securityHeaders,securityMetaTags,STAFF_PAGE} from '../scripts/security-headers.js';
 import {readBody,HttpError} from '../supabase/functions/_shared/http.ts';
 
 test('CSP blocks string evaluation, inline scripts, framing and deprecated unload',()=>{
@@ -17,8 +17,9 @@ test('CSP blocks string evaluation, inline scripts, framing and deprecated unloa
  const staff=securityHeaders('/'+STAFF_PAGE,'https://project.supabase.co');
  assert.ok(!staff['Content-Security-Policy'].includes('razorpay'));
  assert.equal(staff['Cache-Control'],'no-store, max-age=0');
- const output=hostingHeaderFiles('https://project.supabase.co');
- assert.ok(output.headers.includes('/'+STAFF_PAGE));assert.ok(output.apache.includes('Header always set Content-Security-Policy'));
+ const meta=securityMetaTags('/'+STAFF_PAGE,'https://project.supabase.co');
+ assert.ok(meta.includes('http-equiv="Content-Security-Policy"'));assert.ok(meta.includes("script-src 'self'"));
+ assert.ok(!meta.includes('frame-ancestors'));assert.ok(!meta.includes('razorpay'));assert.ok(meta.includes('content="same-origin"'));
 });
 
 test('request body limits count bytes and stop oversized streams before parsing',async()=>{

@@ -11,6 +11,7 @@ test('public pages contain meaningful initial HTML and private pages are not pre
   assert.ok(html.includes('id="main"'));assert.ok(html.includes('id="public-snapshot"'));
   const data=html.match(/<script type="application\/json" id="public-snapshot">([\s\S]*?)<\/script>/)[1];
   assert.equal(JSON.parse(data).site.name,'KCG Foundation');
+  for(const image of html.matchAll(/<img\b[^>]*>/g))assert.match(image[0],/draggable="false"/);
  }
  assert.equal(prerenderPage('account',snapshot),null);assert.equal(prerenderPage('checkout',snapshot),null);
  assert.ok(canonicalUrl('index').endsWith('/'));assert.equal(canonicalUrl('mission'),canonicalUrl('about'));
@@ -19,4 +20,7 @@ test('public pages contain meaningful initial HTML and private pages are not pre
  const sitemap=sitemapXml({products:[{slug:'a & b'}],posts:[{slug:'our-story'}],makers:[{id:'maker-id'}]});
  assert.ok(sitemap.includes('product.html?piece=a+%26+b'));assert.ok(sitemap.includes('blog.html?story=our-story'));
  assert.ok(!sitemap.includes('/account.html'));assert.ok(!sitemap.includes('/index.html'));assert.ok(!sitemap.includes('/mission.html'));
+ const programs=prerenderPage('programs',snapshot).split('<main')[1];
+ assert.match(programs.match(/<img\b[^>]*>/)[0],/loading="eager".*fetchpriority="high"/);
+ assert.match(programs,/<img\b[^>]*loading="lazy"/);
 });

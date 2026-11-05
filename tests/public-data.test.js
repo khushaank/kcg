@@ -34,6 +34,9 @@ test('rural illustrations only replace known stock assets and malformed foundati
  assert.ok(imageCredit('/images/rural-pottery-illustration.jpg'));
  assert.equal(siteImage('/images/Health-camp.jpg'),'/images/Health-camp.jpg');
  assert.equal(imageCredit('/images/Health-camp.jpg'),'');
+ const hero=mergeFoundation({hero_image:'/images/Health-camp.jpg',hero_image_alt:'Old event photograph'});
+ assert.equal(hero.hero_image,'/images/rural-health-camp-illustration.jpg');assert.match(hero.hero_image_alt,/AI-generated/);assert.ok(imageCredit(hero.hero_image));
+ assert.equal(mergeFoundation({hero_image:'https://example.com/approved-hero.jpg'}).hero_image,'https://example.com/approved-hero.jpg');
  assert.equal(siteImage('images/cataract-operation.jpg'),'/images/rural-eye-care-illustration.jpg');
  assert.equal(siteImage('https://example.com/approved-maker.jpg'),'https://example.com/approved-maker.jpg');
  const site=mergeFoundation({phone:{bad:true},story:null,programs:[null,{title:'Education',image:'/images/education.jpg',description:'Learning together'}]});

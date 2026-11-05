@@ -16,4 +16,6 @@ The following photographs are illustrative visual material. They are not represe
 
 The four existing journal articles and original Logo.png/favicon.png are retained from the supplied folder. The supplied Logo.png is used intact in the navbar and staff sign-in. Repeated hero/footer logo graphics have been removed. No replacement brand mark is used. Small interface icons remain inline SVG.
 
+Web delivery uses compressed derivatives of the supplied logo and favicon; the original source files are unchanged. `npm run optimize:images` generates responsive WebP files under `public/images/optimized`, the image manifest, the navbar logo derivative and small favicon files. It also copies the locally hosted DM Sans font and its OFL licence from the pinned Fontsource package to `public/fonts`. Public pages do not request Google Fonts.
+
 Learning, community meals, eye care and general pottery now have locally generated rural Indian illustrations. Known legacy stock-image paths and the eye-operation close-up are mapped to the new files. The original health-camp photograph stays in use; all supplied source files and custom maker/product uploads are retained. Illustrations have visible disclosure captions. See [generated image files and prompts](GENERATED-IMAGES.md).

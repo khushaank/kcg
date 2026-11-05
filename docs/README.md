@@ -8,6 +8,9 @@ All project guides and templates are together in this folder. Production website
 | --- | --- |
 | [Deployment and credentials](DEPLOYMENT.md) | GitHub, Netlify, the production domain, Supabase variables and Edge Functions |
 | [First-time Supabase setup](SETUP.md) | SQL order, staff accounts, roles and MFA |
+| [Remaining Supabase steps](SUPABASE-REMAINING.md) | What to do after SQL 01–07 and assigning your super admin |
+| [SEO and Lighthouse](SEO.md) | Search metadata, performance work, reports and audit commands |
+| [Error handling](ERROR-HANDLING.md) | Recovery behaviour and failure checks |
 | [Staff workspace](ADMIN.md) | Managing foundation content, makers, products and orders |
 | [Razorpay setup](RAZORPAY-SETUP.md) | Merchant account, Route, maker accounts, secrets and test payments |
 | [Security](SECURITY.md) | Protections, browser warnings and release checks |

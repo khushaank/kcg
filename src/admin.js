@@ -1,3 +1,4 @@
+import {errorMessage,UserFacingError} from './reliability.js';
 import './style.css';
 import './admin.css';
 import './heritage.css';
@@ -41,7 +42,7 @@ async function guard(){
  session=data.session;
  try{
    const verified=await result(db.auth.getUser());
-   if(verified.user?.id!==session.user.id || verified.user?.is_anonymous)throw new Error('Invalid staff identity');
+   if(verified.user?.id!==session.user.id || verified.user?.is_anonymous)throw new UserFacingError('Invalid staff identity');
    const membership=await result(db.from('admin_users').select('user_id,role,enabled').eq('user_id',session.user.id).maybeSingle());
    if(!membership?.enabled || !Object.hasOwn(ROLE_NAMES,membership.role)){await db.auth.signOut({scope:'local'});session=null;authView('This account does not have active staff access. Contact the Supabase project owner.');return;}
    role=membership.role;
@@ -86,7 +87,7 @@ async function render(){
   if(tab==='foundation')return foundationEditor(body);
   if(current)return editor(body,current);
   await list(body);
- }catch(error){status(error.message,true);}
+ }catch(error){status(errorMessage(error),true);}
 }
 async function overview(body){
  const counts={};
@@ -158,22 +159,22 @@ async function saveRecord(form,intent){
    payload.image=payload.gallery[0]?.url || '';
    payload.process_steps=[...form.querySelectorAll('[data-step]')].map(el=>({title:String(f.get(`step_title_${el.dataset.step}`)||'').trim(),description:String(f.get(`step_description_${el.dataset.step}`)||'').trim()})).filter(s=>s.title || s.description);
    payload.price_paise=Math.round(Number(f.get('price_rupees'))*100);payload.stock=Number(f.get('stock'));payload.sort_order=Number(f.get('sort_order'));
-   if(!Number.isSafeInteger(payload.price_paise)||payload.price_paise<100||!Number.isInteger(payload.stock)||payload.stock<0)throw new Error('Enter a valid price of at least ₹1 and a whole-number stock quantity.');
+   if(!Number.isSafeInteger(payload.price_paise)||payload.price_paise<100||!Number.isInteger(payload.stock)||payload.stock<0)throw new UserFacingError('Enter a valid price of at least ₹1 and a whole-number stock quantity.');
   }
   if(tab==='journal_posts')payload=stringFields(f,['title','slug','date','category','readingTime','excerpt','featuredImage','content']);
   if(tab==='gallery_items')payload={...stringFields(f,['title','image','alt','description']),sort_order:Number(f.get('sort_order'))};
   if(tab==='maker_payment_accounts'){
    payload={maker_id:current?.maker_id || f.get('maker_id'),razorpay_account_id:String(f.get('razorpay_account_id')||'').trim(),enabled:f.has('enabled')};
-   if(!/^acc_[A-Za-z0-9]+$/.test(payload.razorpay_account_id))throw new Error('Enter the verified Razorpay account ID beginning with acc_.');
+   if(!/^acc_[A-Za-z0-9]+$/.test(payload.razorpay_account_id))throw new UserFacingError('Enter the verified Razorpay account ID beginning with acc_.');
   }else payload.published=intent==='publish';
-  for(const [key,value] of Object.entries(payload))if((key.endsWith('_url') || ['image','featuredImage'].includes(key)) && value && !mediaSource(value))throw new Error('Use a valid HTTPS media URL or a local /images/ path.');
-  if(payload.gallery?.some(i=>!mediaSource(i.url)))throw new Error('A product photograph URL is invalid.');
-  const invalid=entryErrors(tab,payload);if(invalid.length)throw new Error(invalid.join('\n'));
+  for(const [key,value] of Object.entries(payload))if((key.endsWith('_url') || ['image','featuredImage'].includes(key)) && value && !mediaSource(value))throw new UserFacingError('Use a valid HTTPS media URL or a local /images/ path.');
+  if(payload.gallery?.some(i=>!mediaSource(i.url)))throw new UserFacingError('A product photograph URL is invalid.');
+  const invalid=entryErrors(tab,payload);if(invalid.length)throw new UserFacingError(invalid.join('\n'));
   if(payload.published){
-   const missing=publicationErrors(tab,payload);if(missing.length)throw new Error('Before publishing, complete: '+missing.join(', ')+'.');
+   const missing=publicationErrors(tab,payload);if(missing.length)throw new UserFacingError('Before publishing, complete: '+missing.join(', ')+'.');
    if(tab==='products'){
     const maker=await result(db.from('makers').select('*').eq('id',payload.maker_id).single());
-    if(!maker.published || publicationErrors('makers',maker).length)throw new Error('Publish a complete maker profile, including the portrait and life story, before publishing their product.');
+    if(!maker.published || publicationErrors('makers',maker).length)throw new UserFacingError('Publish a complete maker profile, including the portrait and life story, before publishing their product.');
    }
   }
   const key=tab==='maker_payment_accounts'?'maker_id':'id',id=current?.[key];
@@ -183,7 +184,7 @@ async function saveRecord(form,intent){
   if(tab==='makers')options=await result(db.from('makers').select('id,name,published').order('name').limit(1000));
   status(payload.published?'Published. This story is now available on the website.':tab==='maker_payment_accounts'?'Payout account saved.':'Draft saved. You can return and complete it whenever you’re ready.');
   const label=form.querySelector('.admin-savebar>span');if(label)label.textContent=payload.published?'Published':'Saved draft';
- }catch(error){status(error.message,true);}finally{busy=false;form.querySelectorAll('.admin-savebar button').forEach(b=>b.disabled=false);}
+ }catch(error){status(errorMessage(error),true);}finally{busy=false;form.querySelectorAll('.admin-savebar button').forEach(b=>b.disabled=false);}
 }
 async function saveFoundation(form){
  if(!can('foundation'))return status('A manager or super admin must save foundation content.',true);
@@ -195,11 +196,11 @@ async function saveFoundation(form){
   const value=stringFields(f,keys);
   value.name=FOUNDATION_NAME;
   value.programs=[...form.querySelectorAll('[data-program]')].filter(el=>!f.has(`program_remove_${el.dataset.program}`)).map(el=>{const i=el.dataset.program;return {title:f.get(`program_title_${i}`),subtitle:f.get(`program_subtitle_${i}`),description:f.get(`program_description_${i}`),image:f.get(`program_image_${i}`),alt:f.get(`program_alt_${i}`)};});
-  if(!value.name||!value.email||!value.hero_heading||!value.mission)throw new Error('Complete the foundation name, email, home headline and mission.');
-  if(!mediaSource(value.hero_image) || value.programs.some(p=>!p.title||!p.description||!mediaSource(p.image)))throw new Error('Complete each program’s title, description and valid photograph URL.');
-  const invalid=entryErrors('foundation',value);if(invalid.length)throw new Error(invalid.join('\n'));
+  if(!value.name||!value.email||!value.hero_heading||!value.mission)throw new UserFacingError('Complete the foundation name, email, home headline and mission.');
+  if(!mediaSource(value.hero_image) || value.programs.some(p=>!p.title||!p.description||!mediaSource(p.image)))throw new UserFacingError('Complete each program’s title, description and valid photograph URL.');
+  const invalid=entryErrors('foundation',value);if(invalid.length)throw new UserFacingError(invalid.join('\n'));
   await result(db.from('site_content').upsert({key:'foundation',value,updated_at:new Date().toISOString()}));site=mergeFoundation(value);setDirty(false);status('Foundation content saved. Your website will show the new content when refreshed.');
- }catch(error){status(error.message,true);}finally{busy=false;form.querySelector('.admin-savebar button').disabled=false;}
+ }catch(error){status(errorMessage(error),true);}finally{busy=false;form.querySelector('.admin-savebar button').disabled=false;}
 }
 async function upload(input){
  const file=input.files?.[0];if(!file || !configured)return;
@@ -208,16 +209,16 @@ async function upload(input){
  if(uploads){message.textContent='Please wait for the current upload to finish.';input.value='';return;}
  input.disabled=true;setDirty(true);uploads++;
  try{
-  const problem=uploadError(file,kind);if(problem)throw new Error(problem);
+  const problem=uploadError(file,kind);if(problem)throw new UserFacingError(problem);
   if(kind==='image'){
    const image=await createImageBitmap(file);
    const tooLarge=image.width>4096||image.height>4096;image.close();
-   if(tooLarge)throw new Error('Resize photographs to at most 4,096 pixels on each side before uploading.');
+   if(tooLarge)throw new UserFacingError('Resize photographs to at most 4,096 pixels on each side before uploading.');
   }
-  if(kind==='captions'&&!/^\uFEFF?WEBVTT(?:[ \t\r\n]|$)/.test(await file.text()))throw new Error('Choose a valid WebVTT caption file beginning with WEBVTT.');
+  if(kind==='captions'&&!/^\uFEFF?WEBVTT(?:[ \t\r\n]|$)/.test(await file.text()))throw new UserFacingError('Choose a valid WebVTT caption file beginning with WEBVTT.');
   const contentType=kind==='captions'?'text/vtt':file.type;
   const allowed=kind==='image'?['image/jpeg','image/png','image/webp','image/avif']:kind==='video'?['video/mp4','video/webm']:['text/vtt'];
-  if(!allowed.includes(contentType))throw new Error('This file type is not supported.');
+  if(!allowed.includes(contentType))throw new UserFacingError('This file type is not supported.');
   const extension={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/avif':'avif','video/mp4':'mp4','video/webm':'webm','text/vtt':'vtt'}[contentType];
   const path=`${kind}/${crypto.randomUUID()}.${extension}`;
   message.textContent='Uploading… keep this page open.';
@@ -225,7 +226,7 @@ async function upload(input){
   target.value=db.storage.from(bucket).getPublicUrl(path).data.publicUrl;
   setDirty(true);message.textContent='Uploaded. Save the record to attach this media.';
   if(kind==='image'){let preview=box.querySelector('.admin-media-preview');if(!preview){preview=document.createElement('img');preview.className='admin-media-preview';preview.alt='Uploaded photograph';box.querySelector('.admin-upload').before(preview);}preview.src=target.value;}
- }catch(error){message.textContent=error.message;}finally{uploads--;input.disabled=false;input.value='';}
+ }catch(error){message.textContent=errorMessage(error);}finally{uploads--;input.disabled=false;input.value='';}
 }
 async function viewOrder(id){
  const [order,items]=await Promise.all([result(db.from('orders').select('*').eq('id',id).single()),result(db.from('order_items').select('*').eq('order_id',id))]);
@@ -262,10 +263,10 @@ document.addEventListener('submit',async event=>{
 });
 document.addEventListener('click',async event=>{
  const el=event.target.closest('[data-tab],[data-admin-action]');if(!el)return;
+ try{
  if(el.dataset.tab){if(!can('tab',el.dataset.tab))return status('This section is not available to your role.',true);if(!discard())return;tab=el.dataset.tab;page=0;current=el.dataset.new?{}:null;await render();return;}
  const action=el.dataset.adminAction;
  if(action==='enroll-mfa'){await enrollMfa(el);return;}
- try{
   if(action==='new'||action==='back'){if(!discard())return;current=action==='new'?{}:null;await render();}
   if(action==='edit'){if(!discard())return;const key=tab==='maker_payment_accounts'?'maker_id':'id';current=await result(db.from(tab).select('*').eq(key,el.dataset.id).single());await render();}
   if(action==='previous'||action==='next'){page+=action==='next'?1:-1;await render();}
@@ -277,9 +278,9 @@ document.addEventListener('click',async event=>{
   if(action==='fulfil'){
    if(!can('operations'))return status('Only managers and super admins can update delivery status.',true);
    const updated=await result(db.from('orders').update({status:el.dataset.status}).eq('id',el.dataset.id).select('id'));
-   if(!updated.length)throw new Error('This order’s status changed. Refresh before updating it.');await render();status('Order marked '+el.dataset.status+'.');
+   if(!updated.length)throw new UserFacingError('This order’s status changed. Refresh before updating it.');await render();status('Order marked '+el.dataset.status+'.');
   }
- }catch(error){status(error.message,true);}
+ }catch(error){status(errorMessage(error),true);}
 });
 function warnUnsaved(event){event.preventDefault();event.returnValue='';}
 function setDirty(value){dirty=value;if(value)window.addEventListener('beforeunload',warnUnsaved);else window.removeEventListener('beforeunload',warnUnsaved);}
@@ -298,4 +299,4 @@ setInterval(async()=>{
   if(!member?.enabled||member.role!==role)await lockWorkspace();
  }catch{await lockWorkspace();}
 },30000);
-guard();
+guard().catch(()=>authView('The workspace could not open. Check your connection and sign in again.'));

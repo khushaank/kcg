@@ -1,11 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
+import {boundedFetch} from './reliability.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL || '';
 const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
 export const configured = /^https:\/\//.test(url) && !url.includes('YOUR-') && key.length > 20 && !key.includes('YOUR_');
-export const db = configured ? createClient(url, key) : null;
+export const db = configured ? createClient(url, key,{global:{fetch:boundedFetch}}) : null;
 // Published pages must not wait for a customer's persisted Auth session to refresh.
-export const contentDb = configured ? createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false,storageKey:'kcg-public-content'}}) : null;
+export const contentDb = configured ? createClient(url,key,{global:{fetch:boundedFetch},auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false,storageKey:'kcg-public-content'}}) : null;
 export async function result(query) {
   const { data, error } = await query;
   if (error) throw error;

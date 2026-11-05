@@ -20,4 +20,4 @@ assert.ok(headers.includes("script-src 'self'"));
 assert.ok(!headers.includes('unsafe-eval'));
 assert.ok(headers.includes("frame-ancestors 'none'"));
 assert.ok(headers.includes('unload=()'));
-console.log('Production security checks passed: no eval, unload handlers, inline scripts or private build files; restrictive headers included.');
+console.log('Production security checks passed: no eval, unload handlers, inline executable scripts or private build files; JSON data validated and restrictive headers included.');

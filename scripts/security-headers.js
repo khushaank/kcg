@@ -7,8 +7,8 @@ export function securityHeaders(pathname='/',supabaseUrl='',{dev=false,https=tru
   "default-src 'self'",
   `script-src 'self'${payment?' https://checkout.razorpay.com https://cdn.razorpay.com':''}`,
   "script-src-attr 'none'",
-  `style-src 'self' https://fonts.googleapis.com${dev||payment?" 'unsafe-inline'":''}`,
-  "font-src 'self' https://fonts.gstatic.com",
+  `style-src 'self'${dev||payment?" 'unsafe-inline'":''}`,
+  "font-src 'self'",
   "img-src 'self' https: data:",
   "media-src 'self' https: blob:",
   `connect-src 'self'${backend?' '+backend:''}${dev?' ws://localhost:* ws://127.0.0.1:*':''}${payment?' https://*.razorpay.com':''}`,
@@ -26,6 +26,8 @@ export function securityHeaders(pathname='/',supabaseUrl='',{dev=false,https=tru
   'Cross-Origin-Resource-Policy':'same-origin',
  };
  if(https&&!dev)headers['Strict-Transport-Security']='max-age=31536000';
+ if(pathname.startsWith('/assets/'))headers['Cache-Control']='public, max-age=31536000, immutable';
+ if(pathname.startsWith('/images/')||pathname.startsWith('/fonts/'))headers['Cache-Control']='public, max-age=604800';
  if(pathname.endsWith('/'+STAFF_PAGE)||payment){headers['Cache-Control']='no-store, max-age=0';headers['X-Robots-Tag']='noindex, nofollow, noarchive';}
  if(pathname.endsWith('/'+STAFF_PAGE))headers['Referrer-Policy']='same-origin';
  return headers;
@@ -40,7 +42,7 @@ export function hostingHeaderFiles(supabaseUrl){
  const staff=securityHeaders('/'+STAFF_PAGE,supabaseUrl);
  // Staff CSP intersects the common policy: no payment scripts or inline styles in admin.
  const staffExtra={...extra,'Referrer-Policy':'same-origin','Content-Security-Policy':staff['Content-Security-Policy']};
- const headers=section('/*',common)+'\n'+section('/'+STAFF_PAGE,staffExtra)+'\n'+section('/account.html',extra)+'\n'+section('/checkout.html',extra);
+ const headers=section('/*',common)+'\n'+section('/assets/*',{'Cache-Control':'public, max-age=31536000, immutable'})+'\n'+section('/images/*',{'Cache-Control':'public, max-age=604800'})+'\n'+section('/fonts/*',{'Cache-Control':'public, max-age=604800'})+'\n'+section('/'+STAFF_PAGE,staffExtra)+'\n'+section('/account.html',extra)+'\n'+section('/checkout.html',extra);
  const apache='<IfModule mod_headers.c>\n'+Object.entries(common).map(([k,v])=>'  Header always set '+k+' "'+v+'"').join('\n')+'\n  <Files "'+STAFF_PAGE+'">\n'+Object.entries(staffExtra).map(([k,v])=>'    Header always set '+k+' "'+v+'"').join('\n')+'\n  </Files>\n  <FilesMatch "^(account|checkout)\\.html$">\n    Header always set Cache-Control "no-store, max-age=0"\n    Header always set X-Robots-Tag "noindex, nofollow, noarchive"\n  </FilesMatch>\n</IfModule>\nOptions -Indexes\nErrorDocument 404 /404.html\n';
  return {headers,apache};
 }

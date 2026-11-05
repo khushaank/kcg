@@ -7,13 +7,15 @@ for(const name of (await readdir(directory)).filter(n=>/\.(?:jpg|png)$/i.test(n)
  const widths=[...new Set([320,640,960,1280,meta.width].filter(w=>w<=meta.width))].sort((a,b)=>a-b);
  const variants=[];
  for(const width of widths){
-  const file=`${base}-${width}.webp`;
-  await image.clone().resize({width,withoutEnlargement:true}).webp({quality:65,effort:5}).toFile(directory+'/optimized/'+file);
+  const smallPhoto=name==='Health-camp.jpg',file=`${base}-${width}.${smallPhoto?'avif':'webp'}`;
+  const resized=image.clone().resize({width,withoutEnlargement:true});
+  await (smallPhoto?resized.avif({quality:55,effort:6}):resized.webp({quality:65,effort:5})).toFile(directory+'/optimized/'+file);
   variants.push({url:'/images/optimized/'+file,width,height:Math.round(meta.height*width/meta.width)});
  }
  manifest['/images/'+name]=variants;
 }
 await sharp('public/Logo.png').resize({width:320}).webp({quality:72,effort:6}).toFile(directory+'/kcg-logo.webp');
+await sharp('public/Logo.png').resize({width:272}).avif({quality:65,effort:6}).toFile(directory+'/kcg-logo.avif');
 for(const size of [32,180])await sharp('public/favicon.png').resize(size,size,{fit:'contain',background:{r:255,g:255,b:255,alpha:0}}).png().toFile(`public/favicon-${size}.png`);
 await copyFile('node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2','public/fonts/dm-sans-latin.woff2');
 await copyFile('node_modules/@fontsource-variable/dm-sans/LICENSE','public/fonts/DM-Sans-LICENSE.txt');

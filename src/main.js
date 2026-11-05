@@ -1,3 +1,4 @@
+import {errorMessage,UserFacingError,showSiteError} from './reliability.js';
 import {deliveredImage,withResponsiveImages} from './image-delivery.js';
 import {pageSeo,updateDetailSeo} from './seo.js';
 import {siteHeader,siteFooter,contactPage,legalPage,galleryPage,journalCard,collectionPage} from './public-pages.js';
@@ -26,7 +27,7 @@ let cart = readCart(), activeCategory = params.get('category') || 'All pieces', 
 let cartSave = Promise.resolve(), cartLoadedFor = '', checkoutKey = '', lastFocus;
 function readCart() { try { return normalizeCart(JSON.parse(localStorage.getItem('kcg-cart') || '[]')); } catch { return []; } }
 function toast(message) { const el = document.querySelector('#toast'); el.textContent = message; el.classList.add('visible'); clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove('visible'), 4500); }
-function showError(el, error) { el.textContent = error?.message || 'Something went wrong. Please try again.'; el.hidden = false; }
+function showError(el, error) { el.textContent = errorMessage(error); el.hidden = false; }
 const makerFor = p => makers.find(m => m.id === p.maker_id);
 const productHref = p => `product.html?piece=${encodeURIComponent(p.slug)}`;
 const makerHref = m => `makers.html?maker=${encodeURIComponent(m.id)}`;
@@ -72,7 +73,7 @@ function journal() {
   const p = posts.find(p=>p.slug===params.get('story'));
   if (params.has('story') && !p) return notFound('We couldn’t find that story.','There are more stories waiting in the journal.');
   if (p) return `<article class="article-page"><div class="page-intro"><a class="eyebrow" href="blog.html">← THE JOURNAL</a><h1>${esc(p.title)}</h1><p>${esc(p.date)} · ${esc(p.category)} · ${esc(p.readingTime)}</p></div><figure class="article-visual"><img class="article-image" src="${imageUrl(p.featuredImage)}" alt="${esc(imageAlt(p.featuredImage,p.title))}">${imageCredit(p.featuredImage)}</figure><div class="prose">${safeArticle(p.content)}</div></article>`;
-  return `<section class="page-intro"><span class="eyebrow">THE KCG JOURNAL</span><h1>A little more <em>good.</em></h1><p>From community care to brighter classrooms.<br>Stories from the work, and the people at its heart.</p></section><section class="section"><div class="journal-grid">${posts.map(postCard).join('') || '<p>Our next story is on its way.</p>'}</div></section>`;
+  return `<section class="page-intro"><span class="eyebrow">THE KCG JOURNAL</span><h1>A little more <em>good.</em></h1><p>From community care to brighter classrooms.<br>Stories from the work, and the people at its heart.</p></section><section class="section"><h2 class="sr-only">Community stories</h2><div class="journal-grid">${posts.map(postCard).join('') || '<p>Our next story is on its way.</p>'}</div></section>`;
 }
 function about() { return foundationStory(experienceContext()); }
 function programs() { return foundationPrograms(experienceContext()); }
@@ -146,7 +147,7 @@ async function loadUserCart() {
 }
 async function submitAuth(form) {
   const status = form.querySelector('.form-status');
-  if (!configured) return showError(status,new Error('Account access will open with the live collection. You can explore the preview without signing in.'));
+  if (!configured) return showError(status,new UserFacingError('Account access will open with the live collection. You can explore the preview without signing in.'));
   const button = form.querySelector('button'); button.disabled=true; status.textContent='Sending your secure link…';
   try {
     const redirect = new URL(page === 'checkout' ? 'checkout.html' : 'account.html',location.href);
@@ -156,7 +157,7 @@ async function submitAuth(form) {
 }
 async function submitInquiry(form) {
   const status = form.querySelector('.form-status');
-  if (!configured) return showError(status,new Error('Online enquiries are not open in this preview. Please email info@b2bindustrial.in or call +91 98997 02065.'));
+  if (!configured) return showError(status,new UserFacingError('Online enquiries are not open in this preview. Please email info@b2bindustrial.in or call +91 98997 02065.'));
   const button = form.querySelector('button'); button.disabled=true;
   const f = new FormData(form);
   try {
@@ -166,7 +167,7 @@ async function submitInquiry(form) {
 }
 async function submitNewsletter(form) {
   const status = form.querySelector('.form-status');
-  if (!configured) return showError(status,new Error('Subscriptions open with the live site. Please check back soon.'));
+  if (!configured) return showError(status,new UserFacingError('Subscriptions open with the live site. Please check back soon.'));
   const button = form.querySelector('button'); button.disabled=true;
   try { await submitPublicForm({kind:'newsletter',email:new FormData(form).get('email'),website:new FormData(form).get('website')}); form.reset(); status.textContent='You’re on the list. Thank you for being part of the story.'; }
   catch(e) { status.textContent=e.code==='23505' ? 'This email is already on the list. Thank you for being here.' : 'We couldn’t save your subscription. Please try again.'; }
@@ -174,9 +175,9 @@ async function submitNewsletter(form) {
 }
 async function startPayment(form) {
   const status=form.querySelector('.form-status'), button=form.querySelector('button');
-  if(catalogError)return showError(status,new Error('Product information is unavailable. Please refresh before paying.'));
-  if (!configured || !session) return showError(status,new Error('Please sign in to continue.'));
-  if (!cart.length) return showError(status,new Error('Your bag is empty.'));
+  if(catalogError)return showError(status,new UserFacingError('Product information is unavailable. Please refresh before paying.'));
+  if (!configured || !session) return showError(status,new UserFacingError('Please sign in to continue.'));
+  if (!cart.length) return showError(status,new UserFacingError('Your bag is empty.'));
   button.disabled=true; status.textContent='Preparing your secure checkout…';
   try {
     await cartSave;
@@ -193,14 +194,18 @@ async function startPayment(form) {
   } catch(e) { showError(status,e);button.disabled=false; }
 }
 async function loadPaymentWidget() {
-  if (!window.Razorpay) await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://checkout.razorpay.com/v1/checkout.js';s.onload=resolve;s.onerror=()=>reject(new Error('Payment could not load. Please check your connection and retry.'));document.head.append(s);});
+  if (!window.Razorpay) await new Promise((resolve,reject)=>{
+    const s=document.createElement('script');s.src='https://checkout.razorpay.com/v1/checkout.js';
+    const fail=()=>{clearTimeout(timer);s.remove();reject(new UserFacingError('Payment could not load. Please check your connection and retry.'));};
+    const timer=setTimeout(fail,15000);s.onload=()=>{clearTimeout(timer);window.Razorpay?resolve():fail();};s.onerror=fail;document.head.append(s);
+  });
 }
 function openPayment(data,status,button,shipping={}) {
     const payment=new window.Razorpay({key:data.key_id,amount:data.amount,currency:'INR',name:'KCG Foundation',description:'Thoughtfully made. Maker first.',order_id:data.razorpay_order_id,prefill:{email:session.user.email,name:shipping.name,contact:shipping.phone},theme:{color:'#263e32'},modal:{ondismiss:()=>{status.textContent='Payment was closed. You can continue from your account whenever you’re ready.';button.disabled=false;}},handler:async response=>{
       status.textContent='Verifying your payment…';
       try {
         const verification=await result(db.functions.invoke('verify-payment',{body:{...response,order_id:data.order_id}}));
-        if (!verification?.paid) throw new Error('Verification is still pending.');
+        if (!verification?.paid) throw new UserFacingError('Verification is still pending.');
         if(page==='checkout'){
           cart=[];saveCart();
           document.querySelector('#checkout-main').innerHTML=`<div class="payment-success">${icon('check')}<span class="eyebrow">A THOUGHTFUL CHOICE</span><h2>Thank you.<br><em>Your piece has a new story.</em></h2><p>Your payment of <strong>${money(data.amount)}</strong> is confirmed. Your order reference is <strong>${esc(data.order_id.slice(0,8).toUpperCase())}</strong>.</p><p>The product value is allocated to the makers. Bank settlement follows the payment provider’s schedule.</p>${link('account.html','View your order','button primary')}</div>`;
@@ -218,10 +223,10 @@ async function resumePayment(id,button) {
   catch(e){showError(status,e);button.disabled=false;}
 }
 function bindEvents() {
-  document.addEventListener('error',event=>{const img=event.target;if(img instanceof HTMLImageElement&&!img.dataset.fallback){img.dataset.fallback='true';img.src='/images/image-placeholder.svg';img.alt='Photograph currently unavailable';}},true);
   document.addEventListener('click',async event=>{
     const category=event.target.closest('[data-category]');if(category){activeCategory=category.dataset.category;updateShop();return;}
     const el=event.target.closest('[data-action]'); if(!el) return;
+    try{
     const action=el.dataset.action,id=el.dataset.id;
     if(action==='gallery-image'){
       const image=document.querySelector('#product-main-image');image.src=el.dataset.src;image.alt=el.dataset.alt;
@@ -257,6 +262,7 @@ function bindEvents() {
       if(error){toast('Sign out failed. Please retry.');el.disabled=false;return;}
       session=null;cartLoadedFor='';cart=[];try{localStorage.removeItem('kcg-cart');localStorage.removeItem('kcg-cart-owner');localStorage.removeItem('kcg-cart-dirty');sessionStorage.removeItem('kcg-checkout');}catch{}location.href='account.html';
     }
+    }catch(error){if(el instanceof HTMLButtonElement)el.disabled=false;toast(errorMessage(error));}
   });
   document.addEventListener('submit',event=>{const form=event.target;event.preventDefault();if(form.id==='auth-form')submitAuth(form);if(form.id==='contact-form')submitInquiry(form);if(form.id==='newsletter-form')submitNewsletter(form);if(form.id==='shipping-form')startPayment(form);});
   document.addEventListener('input',e=>{if(e.target.id==='collection-search'){search=e.target.value;updateShop();}});
@@ -288,6 +294,7 @@ async function init() {
   const routes={index:home,shop,product,makers:makersPage,about,mission:about,programs,blog:journal,pulse:journal,contact,volunteer:contact,donate:contact,account,checkout:checkoutPage,privacy:legal,terms:legal,gallery,'404':notFound};
   document.querySelector('.announcement').innerHTML=`<span>Education, nutrition & community care · ${esc(site.location)}</span><span class="announcement-right">${esc(site.tagline)} ${icon('leaf')}</span>`;
   const main=document.querySelector('#main');
+  if(pageError&&initial&&!params.has('maker')&&!params.has('story')){showSiteError('The latest content could not be loaded. The last published version is shown. Please refresh later.');pageError='';}
   const changed=!initial || firstSignature!==viewSignature({site,makers,products,posts,galleryItems}) || params.has('maker') || params.has('story');
   const editing=document.activeElement?.matches('input,textarea,select');
   if(changed&&!editing)main.innerHTML=withResponsiveImages(pageError?unavailable(pageError):(routes[page]||notFound)());
@@ -313,4 +320,4 @@ async function init() {
     if(event==='SIGNED_IN' && needsCommerce)setTimeout(async()=>{await loadUserCart();renderAccount();if(page==='checkout'&&cart.length){document.querySelector('#checkout-main').innerHTML=shippingForm();updateCheckout();}},0);
   });
 }
-init().catch(error=>{console.error('Page could not load:',error.message);const main=document.querySelector('#main');main.classList.remove('page-pending');main.setAttribute('aria-busy','false');main.innerHTML=unavailable('Please refresh or contact the foundation if this continues.');});
+init().catch(()=>{const main=document.querySelector('#main');if(document.querySelector('#public-snapshot')){showSiteError('Interactive features could not finish loading. You can keep reading, or refresh the page.');return;}if(main){main.classList.remove('page-pending');main.setAttribute('aria-busy','false');main.innerHTML=unavailable('Please refresh or contact the foundation if this continues.');}});

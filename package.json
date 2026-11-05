@@ -10,6 +10,7 @@
     "check:security": "node scripts/security-check.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test tests/*.test.js",
+    "lighthouse": "node scripts/audit-lighthouse.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "prebuild": "npm run optimize:images",
     "predev": "npm run optimize:images"

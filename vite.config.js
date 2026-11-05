@@ -3,7 +3,7 @@ import { readdirSync,writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import {securityHeaders,hostingHeaderFiles} from './scripts/security-headers.js';
 import {readPublicSnapshot,prerenderPage} from './scripts/prerender.mjs';
-import {pageSeo,canonicalUrl,organizationSchema,SITE_ORIGIN} from './src/seo.js';
+import {pageSeo,canonicalUrl,organizationSchema,sitemapXml,SITE_ORIGIN} from './src/seo.js';
 import {deliveredImage} from './src/image-delivery.js';
 
 export default defineConfig(({mode,command})=>{
@@ -24,7 +24,7 @@ export default defineConfig(({mode,command})=>{
     html=html.replace('</head>',`<link rel="canonical" href="${canonical}"><meta property="og:title" content="${info[0]}"><meta property="og:description" content="${info[1]}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${SITE_ORIGIN}/images/rural-learning-illustration.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="robots" content="index,follow,max-image-preview:large"></head>`);
    }
    html=html.replace(/\s*<link rel="preconnect"[^>]*>/g,'').replaceAll('href="/favicon.png"','href="/favicon-32.png"');
-   html=html.replace('</head>','<link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="apple-touch-icon" href="/favicon-180.png"></head>');
+   html=html.replace('</head>','<link rel="apple-touch-icon" href="/favicon-180.png"></head>');
    if(command==='build'&&info){
     snapshot ||= readPublicSnapshot(VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY);
     const data=await snapshot,body=prerenderPage(page,data);
@@ -35,7 +35,7 @@ export default defineConfig(({mode,command})=>{
    if(page==='product')html=html.replace(/<link rel="canonical"[^>]*>/g,'');
    if(!info&&['account','checkout','404'].includes(page))html=html.replace('</head>','<meta name="robots" content="noindex,follow"></head>');
    return html;
-  },closeBundle(){if(command!=='build')return;const files=hostingHeaderFiles(VITE_SUPABASE_URL);writeFileSync(resolve('dist/_headers'),files.headers);writeFileSync(resolve('dist/.htaccess'),files.apache);}}],
+  },async closeBundle(){if(command!=='build')return;const files=hostingHeaderFiles(VITE_SUPABASE_URL);writeFileSync(resolve('dist/_headers'),files.headers);writeFileSync(resolve('dist/.htaccess'),files.apache);writeFileSync(resolve('dist/sitemap.xml'),sitemapXml(await snapshot));}}],
   server: { fs: { deny: ['**/.env*','**/*.{crt,pem,key}','**/.secrets*','**/.git/**','**/.aws/**','**/.codex/**','**/.agents/**','**/artifacts/**','**/media-inbox/**','**/supabase/**'] } },
   build: { rollupOptions: { input: Object.fromEntries(readdirSync('.').filter(f => f.endsWith('.html')).map(f => [f.replace('.html', ''), resolve(f)])) } },
  };

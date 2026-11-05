@@ -16,6 +16,13 @@ export const pageSeo={
 };
 pageSeo.mission=pageSeo.about;pageSeo.pulse=pageSeo.blog;
 export function canonicalUrl(page){return SITE_ORIGIN+(page==='index'?'/':page==='mission'?'/about.html':page==='pulse'?'/blog.html':'/'+page+'.html');}
+export function sitemapXml(snapshot={}){
+ const urls=Object.keys(pageSeo).filter(p=>p!=='product').map(canonicalUrl);
+ for(const [records,page,key] of [[snapshot.posts,'blog','story'],[snapshot.products,'product','piece'],[snapshot.makers,'makers','maker']])for(const record of records || []){
+  const value=page==='makers'?record.id:record.slug;if(value){const url=new URL('/'+page+'.html',SITE_ORIGIN);url.searchParams.set(key,value);urls.push(url.href);}
+ }
+ return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+[...new Set(urls)].map(u=>'  <url><loc>'+u.replaceAll('&','&amp;')+'</loc></url>').join('\n')+'\n</urlset>\n';
+}
 export function organizationSchema(site){return {'@context':'https://schema.org','@type':'Organization','@id':SITE_ORIGIN+'/#organization',name:'KCG Foundation',url:SITE_ORIGIN+'/',logo:SITE_ORIGIN+'/images/kcg-logo.webp',description:site.mission,email:site.email,telephone:site.phone,address:{'@type':'PostalAddress',addressRegion:'Haryana',addressCountry:'IN'}};}
 export function updateDetailSeo({page,params,products,makers,posts}){
  let record=page==='product'?products.find(p=>p.slug===params.get('piece')):page==='makers'&&params.has('maker')?makers.find(m=>m.id===params.get('maker')):page==='blog'&&params.has('story')?posts.find(p=>p.slug===params.get('story')):null;
@@ -27,4 +34,6 @@ export function updateDetailSeo({page,params,products,makers,posts}){
  for(const [key,value] of [['description',description],['og:title',title],['og:description',description]]){let el=document.querySelector('meta[name="'+key+'"],meta[property="'+key+'"]');if(!el){el=document.createElement('meta');el.setAttribute(key.startsWith('og:')?'property':'name',key);document.head.append(el);}el.content=value;}
  const url=new URL('/'+page+'.html',SITE_ORIGIN);url.searchParams.set(page==='product'?'piece':page==='makers'?'maker':'story',record.slug || record.id);
  let canonical=document.querySelector('link[rel="canonical"]');if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical);}canonical.href=url.href;
+ const ogUrl=document.querySelector('meta[property="og:url"]');if(ogUrl)ogUrl.content=url.href;
+ const image=record.featuredImage || record.image || record.portrait_url;if(image){const ogImage=document.querySelector('meta[property="og:image"]');if(ogImage)ogImage.content=new URL(image,SITE_ORIGIN).href;}
 }
